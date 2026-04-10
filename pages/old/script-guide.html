@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>漢字字體辨識指南</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,"PingFang TC","Microsoft JhengHei",sans-serif;color:#1a1a1a;background:#f7f6f3;line-height:1.7}
+.c{max-width:720px;margin:0 auto;padding:14px 16px}
+h1{font-size:26px;font-weight:700;margin-bottom:4px}
+.sub{font-size:19px;color:#999;margin-bottom:16px}
+.sc{background:#fff;border-radius:12px;padding:18px 20px;margin-bottom:14px;border:1px solid #e5e5e5}
+.sc-hdr{display:flex;align-items:center;gap:14px;margin-bottom:10px}
+.sc-num{width:36px;height:36px;border-radius:50%;color:#fff;font-size:19px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.sc-name{font-size:26px;font-weight:700}
+.sc-era{font-size:19px;color:#999}
+.sc-look{font-size:19px;margin-bottom:10px;line-height:1.8}
+.sc-look b{color:#333}
+.sc-tip{font-size:19px;padding:12px 16px;border-radius:8px;margin-bottom:10px;line-height:1.7}
+.sc-tip b{font-weight:700}
+.sc-body{margin-top:10px}
+.sc-detail{font-size:19px;line-height:1.9;color:#444}
+.sc-detail b{color:#1a1a1a;font-weight:600}
+.sc-toggle{background:none;border:none;color:#4169E1;font-size:19px;cursor:pointer;padding:4px 0;font-weight:500}
+.sc-toggle:hover{text-decoration:underline}
+.summary{background:#fff;border-radius:12px;padding:20px 22px;border:1px solid #e5e5e5;margin-bottom:20px}
+.sum-title{font-size:26px;font-weight:700;margin-bottom:12px}
+.sum-row{font-size:19px;line-height:2;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.sum-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+.sum-row b{font-weight:600}
+.footer{text-align:center;font-size:19px;color:#bbb;margin-top:20px}
+</style>
+</head>
+<body>
+<div class="c">
+<h1>漢字字體辨識指南</h1>
+<div class="sub">八種字體的外觀特徵與快速辨識方法</div>
+<div class="summary">
+<div class="sum-title">一句話速記口訣</div>
+<div class="sum-row"><span class="sum-dot" style="background:#8B4513"></span><b>甲骨文</b>：像圖畫，刀刻尖細</div>
+<div class="sum-row"><span class="sum-dot" style="background:#B8860B"></span><b>金文</b>：圓潤肥胖，青銅厚重</div>
+<div class="sum-row"><span class="sum-dot" style="background:#556B2F"></span><b>大篆</b>：比金文整齊，有粗細變化</div>
+<div class="sum-row"><span class="sum-dot" style="background:#2E8B57"></span><b>小篆</b>：鐵絲繞字，修長對稱（粗細均勻＝最大特徵）</div>
+<div class="sum-row"><span class="sum-dot" style="background:#8B0000"></span><b>隸書</b>：矮胖扁寬，蠶頭燕尾（隸變＝古今分界）</div>
+<div class="sum-row"><span class="sum-dot" style="background:#191970"></span><b>楷書</b>：方正端莊，橫平豎直（如人站立）</div>
+<div class="sum-row"><span class="sum-dot" style="background:#4169E1"></span><b>行書</b>：半連半斷，快而可辨（如人行走）</div>
+<div class="sum-row"><span class="sum-dot" style="background:#800080"></span><b>草書</b>：連綿飛舞，狂放難辨（如人奔跑）</div>
+<div class="sum-row" style="margin-top:12px;padding-top:12px;border-top:1px solid #ddd"><b>演變總線</b>：甲骨文→金文→大篆→<span style="color:#2E8B57">小篆</span>（秦統一）→<span style="color:#8B0000">隸書</span>（<b>隸變=古今分界</b>）→<span style="color:#191970">楷書</span>→<span style="color:#4169E1">行書</span>→<span style="color:#800080">草書</span></div>
+<div class="sum-row"><b>分類</b>：古文字（甲骨文/金文/篆）vs 今文字（隸/楷/行/草）</div>
+</div>
+
+    <div class="sc" style="border-left:4px solid #8B4513">
+      <div class="sc-hdr">
+        <div class="sc-num" style="background:#8B4513">1</div>
+        <div>
+          <div class="sc-name">甲骨文</div>
+          <div class="sc-era">商（約前1600–前1046）</div>
+        </div>
+      </div>
+      <div class="sc-look"><b>外觀特徵：</b>象形程度高，筆畫細瘦如刀刻，線條尖銳不圓潤，字形大小不一、排列不整齊</div>
+      <div class="sc-tip" style="background:#8B451315;border:1px solid #8B451330"><b>快速辨識：</b>看到像「圖畫」的文字、線條像刀刻的尖細痕跡→甲骨文</div>
+      <div class="sc-body" id="body0" style="display:none">
+        <div class="sc-detail">刻在龜甲獸骨上，用於占卜。1899年王懿榮在河南安陽殷墟發現。約4500單字，已識約1700個。是中國已知最早的成系統文字。<br><b>辨識要點</b>：① 字形像簡筆畫，保留大量象形成分（如「馬」字能看出馬的頭身腿尾）；② 筆畫纖細、瘦硬，因為是用刀刻的；③ 同一個字有多種寫法（還未標準化）；④ 字的大小不統一。</div>
+      </div>
+      <button class="sc-toggle" onclick="toggle(0)" id="btn0">展開詳情 ▼</button>
+    </div>
+    <div class="sc" style="border-left:4px solid #B8860B">
+      <div class="sc-hdr">
+        <div class="sc-num" style="background:#B8860B">2</div>
+        <div>
+          <div class="sc-name">金文（鐘鼎文）</div>
+          <div class="sc-era">西周（前1046–前771）</div>
+        </div>
+      </div>
+      <div class="sc-look"><b>外觀特徵：</b>筆畫粗壯圓潤，線條飽滿厚重，字形較甲骨文規整，有裝飾感</div>
+      <div class="sc-tip" style="background:#B8860B15;border:1px solid #B8860B30"><b>快速辨識：</b>看到筆畫「肥胖圓潤」、有青銅器般厚重感→金文</div>
+      <div class="sc-body" id="body1" style="display:none">
+        <div class="sc-detail">鑄刻在青銅器（鐘、鼎等）上的文字，又稱「鐘鼎文」。西周數量最多。<br><b>辨識要點</b>：① 筆畫比甲骨文<b>粗壯</b>得多（因為是鑄造，非刀刻）；② 線條圓潤飽滿，有「肉感」；③ 字形比甲骨文更規整但仍有象形特點；④ 代表：毛公鼎銘文（497字，最長金文）。</div>
+      </div>
+      <button class="sc-toggle" onclick="toggle(1)" id="btn1">展開詳情 ▼</button>
+    </div>
+    <div class="sc" style="border-left:4px solid #556B2F">
+      <div class="sc-hdr">
+        <div class="sc-num" style="background:#556B2F">3</div>
+        <div>
+          <div class="sc-name">大篆（籀文）</div>
+          <div class="sc-era">戰國（前475–前221）</div>
+        </div>
+      </div>
+      <div class="sc-look"><b>外觀特徵：</b>比金文更規範，但筆畫仍有粗細變化，結構趨向整齊，字形偏方</div>
+      <div class="sc-tip" style="background:#556B2F15;border:1px solid #556B2F30"><b>快速辨識：</b>比金文整齊、比小篆粗獷，有粗細變化→大篆</div>
+      <div class="sc-body" id="body2" style="display:none">
+        <div class="sc-detail">金文的進一步發展。代表：<b>《石鼓文》</b>（現存最早的石刻文字，戰國秦國）。<br><b>辨識要點</b>：① 比金文更規範整齊，但不如小篆統一；② 筆畫仍有粗細變化（不像小篆那樣均勻）；③ 結構偏方或略長；④ 戰國各國文字各異（六國異文），秦國大篆最後統一為小篆。<br><b>考試要點</b>：戰國文字紛亂→秦始皇「書同文」統一為小篆的歷史背景。</div>
+      </div>
+      <button class="sc-toggle" onclick="toggle(2)" id="btn2">展開詳情 ▼</button>
+    </div>
+    <div class="sc" style="border-left:4px solid #2E8B57">
+      <div class="sc-hdr">
+        <div class="sc-num" style="background:#2E8B57">4</div>
+        <div>
+          <div class="sc-name">小篆（秦篆）</div>
+          <div class="sc-era">秦（前221–前206）</div>
+        </div>
+      </div>
+      <div class="sc-look"><b>外觀特徵：</b>筆畫粗細完全均勻，線條圓轉流暢，字形修長（上密下疏），左右對稱</div>
+      <div class="sc-tip" style="background:#2E8B5715;border:1px solid #2E8B5730"><b>快速辨識：</b>線條像「鐵絲」一樣粗細均勻、字體修長對稱→小篆</div>
+      <div class="sc-body" id="body3" style="display:none">
+        <div class="sc-detail">秦始皇命丞相<b>李斯</b>以秦國文字為基礎統一全國文字。「書同文」與「車同軌」「統一度量衡」並列為秦統一制度。<br><b>辨識要點</b>：① 筆畫<b>粗細完全均勻</b>（最大特徵！像鐵絲繞成）；② 線條<b>圓轉流暢</b>，無方折；③ 字形<b>修長</b>，上密下疏；④ 結構<b>左右對稱</b>，非常工整；⑤ 代表作：泰山刻石、嶧山刻石（李斯書）。<br><b>口訣</b>：「鐵絲繞字，修長對稱」。</div>
+      </div>
+      <button class="sc-toggle" onclick="toggle(3)" id="btn3">展開詳情 ▼</button>
+    </div>
+    <div class="sc" style="border-left:4px solid #8B0000">
+      <div class="sc-hdr">
+        <div class="sc-num" style="background:#8B0000">5</div>
+        <div>
+          <div class="sc-name">隸書</div>
+          <div class="sc-era">漢（前206–220）</div>
+        </div>
+      </div>
+      <div class="sc-look"><b>外觀特徵：</b>字形扁寬（橫長豎短），橫畫有「蠶頭燕尾」，筆畫方折有粗細變化</div>
+      <div class="sc-tip" style="background:#8B000015;border:1px solid #8B000030"><b>快速辨識：</b>字形「矮胖扁寬」、橫畫末端像燕子尾巴翹起→隸書</div>
+      <div class="sc-body" id="body4" style="display:none">
+        <div class="sc-detail">由小篆演變而來。<b>「隸變」是漢字發展史上最重要的變革</b>——古文字（甲骨文/金文/篆）與今文字（隸/楷/行/草）的分界線。<br><b>辨識要點</b>：① 字形<b>扁寬</b>（橫長豎短）——與小篆的修長正好相反；② 橫畫講究<b>「蠶頭燕尾」</b>（起筆像蠶頭圓厚，收筆像燕尾翹起）；③ 筆畫從圓轉變為<b>方折</b>；④ 有明顯的粗細、輕重變化（「一波三折」）。<br><b>代表碑刻</b>：《曹全碑》（秀美）、《張遷碑》（方勁）、《禮器碑》。<br><b>口訣</b>：「扁寬方折，蠶頭燕尾」。</div>
+      </div>
+      <button class="sc-toggle" onclick="toggle(4)" id="btn4">展開詳情 ▼</button>
+    </div>
+    <div class="sc" style="border-left:4px solid #191970">
+      <div class="sc-hdr">
+        <div class="sc-num" style="background:#191970">6</div>
+        <div>
+          <div class="sc-name">楷書</div>
+          <div class="sc-era">魏晉成熟，唐鼎盛</div>
+        </div>
+      </div>
+      <div class="sc-look"><b>外觀特徵：</b>字形方正，橫平豎直，筆畫清晰規矩，像印刷體一樣端正整齊</div>
+      <div class="sc-tip" style="background:#19197015;border:1px solid #19197030"><b>快速辨識：</b>方方正正、一筆一劃清楚分明、像「站立」→楷書</div>
+      <div class="sc-body" id="body5" style="display:none">
+        <div class="sc-detail">由隸書演變而來。又稱正楷、真書、正書。「形體方正，筆畫平直，可作楷模，故名楷書」。<br><b>辨識要點</b>：① 字形<b>方正</b>（不像隸書扁寬，也不像小篆修長）；② <b>橫平豎直</b>，筆畫清晰規矩；③ 筆畫有起筆收筆的規範（頓筆、回鋒）；④ 每個筆畫獨立，不連筆。<br><b>楷書四大家</b>：歐陽詢（唐，險勁《九成宮》）、顏真卿（唐，雄渾《顏勤禮碑》）、柳公權（唐，骨力《玄秘塔碑》）、趙孟頫（元，圓潤）。<br><b>楷書之祖</b>：鍾繇（曹魏）。<br><b>口訣</b>：「方正端莊，橫平豎直」＝如人站立。</div>
+      </div>
+      <button class="sc-toggle" onclick="toggle(5)" id="btn5">展開詳情 ▼</button>
+    </div>
+    <div class="sc" style="border-left:4px solid #4169E1">
+      <div class="sc-hdr">
+        <div class="sc-num" style="background:#4169E1">7</div>
+        <div>
+          <div class="sc-name">行書</div>
+          <div class="sc-era">東晉確立（王羲之）</div>
+        </div>
+      </div>
+      <div class="sc-look"><b>外觀特徵：</b>介於楷書和草書之間，筆畫有連帶但仍可辨識，字形略傾斜有動感</div>
+      <div class="sc-tip" style="background:#4169E115;border:1px solid #4169E130"><b>快速辨識：</b>像楷書在「走路」、有連筆但還認得出來→行書</div>
+      <div class="sc-body" id="body6" style="display:none">
+        <div class="sc-detail">介於楷書和草書之間的字體。楷書的簡便寫法。<br>楷法多於草法→<b>行楷</b>；草法多於楷法→<b>行草</b>。<br><b>辨識要點</b>：① 筆畫之間有<b>連帶牽絲</b>（但不像草書那樣完全連成一片）；② 字形<b>可辨識</b>（不像草書難認）；③ 字形略有傾斜，有<b>流動感和節奏感</b>；④ 書寫速度比楷書快，比草書慢。<br><b>天下三大行書</b>：王羲之《蘭亭集序》（東晉，第一）→顏真卿《祭侄文稿》（唐，第二）→蘇軾《寒食帖》（北宋，第三）。<br><b>口訣</b>：「半連半斷，快而可辨」＝如人行走。</div>
+      </div>
+      <button class="sc-toggle" onclick="toggle(6)" id="btn6">展開詳情 ▼</button>
+    </div>
+    <div class="sc" style="border-left:4px solid #800080">
+      <div class="sc-hdr">
+        <div class="sc-num" style="background:#800080">8</div>
+        <div>
+          <div class="sc-name">草書</div>
+          <div class="sc-era">漢代萌芽，唐達頂峰</div>
+        </div>
+      </div>
+      <div class="sc-look"><b>外觀特徵：</b>筆畫大量省略和連綿，字形高度簡化，像狂風中飛舞的線條，難以辨識</div>
+      <div class="sc-tip" style="background:#80008015;border:1px solid #80008030"><b>快速辨識：</b>筆畫「狂飛亂舞」、幾乎認不出原字→草書</div>
+      <div class="sc-body" id="body7" style="display:none">
+        <div class="sc-detail">為書寫簡便在隸書基礎上演變而來。分<b>章草</b>（隸書草寫，漢代，字字獨立）和<b>今草</b>（楷書草寫，字字相連）。<br>狂草是今草的極端形式，一筆而成，縱任奔逸。<br><b>辨識要點</b>：① 筆畫<b>高度省略和連綿</b>，一筆多字；② 字形<b>極度簡化</b>，常人難以辨識；③ 線條<b>飛動狂放</b>，充滿速度感和張力；④ 章草字字分開，今草字字相連，狂草整行一氣呵成。<br><b>代表人物</b>：張旭「草聖」＋懷素，合稱<b>「顛張醉素」</b>。<br><b>口訣</b>：「連綿省略，如人奔跑」。</div>
+      </div>
+      <button class="sc-toggle" onclick="toggle(7)" id="btn7">展開詳情 ▼</button>
+    </div>
+<div class="footer">甲骨文→金文→大篆→小篆→隸書→楷書→行書→草書</div>
+</div>
+<script>
+function toggle(i){
+  var b=document.getElementById('body'+i);
+  var btn=document.getElementById('btn'+i);
+  if(b.style.display==='none'){b.style.display='block';btn.textContent='收起 ▲';}
+  else{b.style.display='none';btn.textContent='展開詳情 ▼';}
+}
+</script>
+</body>
+</html>

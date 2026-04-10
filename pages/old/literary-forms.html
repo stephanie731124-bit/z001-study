@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Z001 文體流變專題</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,"PingFang TC","Microsoft JhengHei",sans-serif;color:#1a1a1a;background:#f7f6f3;line-height:1.7}
+.c{max-width:720px;margin:0 auto;padding:14px 16px}
+h1{font-size:26px;font-weight:700}
+.sub{font-size:26px;color:#999;margin-bottom:12px}
+.tabs{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:14px;position:sticky;top:0;z-index:10;background:#f7f6f3;padding:8px 0}
+.tab{font-size:26px;padding:8px 14px;border-radius:18px;border:1px solid #e5e5e5;background:#fff;cursor:pointer;color:#555;font-weight:500;white-space:nowrap;transition:.15s}
+.tab.on{color:#fff;border-color:transparent}
+.leg{font-size:19px;color:#999;margin-bottom:12px;display:flex;gap:8px;flex-wrap:wrap}
+.star{color:#BA7517}
+.cards{display:flex;flex-direction:column;gap:8px}
+.card{padding:16px 18px;border-radius:10px;cursor:pointer;transition:.12s;border:1px solid transparent}
+.card:hover{border-color:rgba(0,0,0,.12);transform:translateX(2px)}
+.card .nm{font-weight:700;font-size:26px;margin-bottom:6px;display:flex;align-items:center;gap:5px;flex-wrap:wrap}
+.card .ct{font-size:26px;line-height:1.8}
+.card .nt{font-size:26px;opacity:.65;margin-top:6px;border-top:1px solid rgba(0,0,0,.08);padding-top:6px}
+.ov{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.5);z-index:100;align-items:center;justify-content:center;padding:12px}
+.ov.show{display:flex}
+.md{background:#fff;border-radius:12px;max-width:560px;width:100%;max-height:85vh;overflow-y:auto;padding:22px;box-shadow:0 20px 60px rgba(0,0,0,.2)}
+.md h3{font-size:26px;font-weight:700;margin-bottom:8px}
+.md .mt{display:inline-block;font-size:26px;padding:4px 10px;border-radius:10px;margin-bottom:8px;margin-right:4px;font-weight:500}
+.md .row{margin-bottom:12px}
+.md .row .label{font-size:26px;color:#999;font-weight:600;margin-bottom:3px}
+.md .row .val{font-size:26px;line-height:1.9}
+.md .cb{float:right;border:none;background:none;font-size:26px;cursor:pointer;color:#999;line-height:1}
+.md .cb:hover{color:#333}
+</style>
+</head>
+<body>
+<div class="c">
+<h1>中國歷代文體流變</h1>
+<div class="sub">詩經→楚辭→賦→樂府→駢文→古文→近體詩→詞→曲→小說 · 共39條</div>
+<div class="tabs" id="tabs"></div>
+<div class="leg"><span class="star">★★★</span>必考 <span class="star">★★</span>常考 <span class="star">★</span>偶考</div>
+<div id="content"></div>
+</div>
+<div class="ov" id="ov" onclick="if(event.target===this)cM()"><div class="md" id="mc"></div></div>
+<script>
+var TABS=[{"id": "timeline", "n": "文體流變總覽", "color": "#534AB7", "bg": "#EEEDFE", "tx": "#3C3489"}, {"id": "fu", "n": "賦", "color": "#BA7517", "bg": "#FAEEDA", "tx": "#633806"}, {"id": "shi", "n": "近體詩", "color": "#1D9E75", "bg": "#E1F5EE", "tx": "#085041"}, {"id": "ci", "n": "詞", "color": "#D4537E", "bg": "#FBEAF0", "tx": "#72243E"}, {"id": "qu", "n": "曲", "color": "#378ADD", "bg": "#E6F1FB", "tx": "#0C447C"}, {"id": "novel", "n": "小說", "color": "#993C1D", "bg": "#FAECE7", "tx": "#712B13"}, {"id": "compare", "n": "文體比較", "color": "#6B5CE7", "bg": "#F0EDFF", "tx": "#3C3489"}];
+
+var DATA={
+'timeline':[
+{nm:'春秋 →《詩經》',cont:'中國最早的詩歌總集，作者多不可考（孔子編訂）。305篇，以四言為主。韻文之祖、純文學之祖、四言古詩代表。風格重寫實（現實主義源頭）。北方文學，取材社會生活，屬平民文學。',note:'地位：十三經之一 / 六義＝風雅頌＋賦比興',st:3},
+{nm:'戰國 →《楚辭》',cont:'辭賦之祖。屈原（約前340–前278，楚國）創作，代表作《離騷》《天問》《九歌》。句式長短自由，以六七言為多。風格重浪漫（浪漫主義源頭）。南方文學，描寫個人情感，多寫神話，屬貴族文學。',note:'用韻而長篇鋪述→開後世漢賦先河。《離騷》為六大才書之一',st:3},
+{nm:'漢 → 賦',cont:'介於詩文之間的韻文。源出楚辭，脫離音樂，僅供朗誦（「不歌而誦謂之賦」班固語）。漢代為賦之黃金時代。賦聖：司馬相如（《子虛賦》《上林賦》）。漢賦四大家：司馬相如、揚雄、班固、張衡。',note:'賈誼開漢賦先聲，上承屈原宋玉，下開枚乘司馬相如',st:2},
+{nm:'漢 → 樂府詩',cont:'多為民間所作（作者大抵不可考），可歌可誦可入樂，多長短句，以記功述事為主，風格遒勁。代表：《孔雀東南飛》（東漢，最長敘事詩）、《木蘭辭》（南北朝）。與古詩並為漢代詩歌文學之雙葩。',note:'五言古詩自樂府發展來；七言絕句源自南北朝樂府小詩',st:2},
+{nm:'漢 → 古詩',cont:'多為士大夫所作（有名文人之作品），只可誦不可入樂，多五七言，重言情，風格溫雅含蓄。代表：《古詩十九首》（東漢，作者不詳）。五言詩起於東漢班固《詠史詩》，七言詩始於曹丕《燕歌行》。',note:'與樂府詩為漢代詩歌文學之雙葩',st:2},
+{nm:'魏晉南北朝 → 駢體文',cont:'又稱「四六文」。特點：好用典故，重形式輕內容，講究對偶聲律，華美而無實。盛行於南北朝。屬非韻文。',note:'唐代古文運動（韓愈柳宗元）即為抵制駢文華而無實之風氣',st:2},
+{nm:'唐 → 古文（散文復興）',cont:'韓愈（「文以載道」《師說》《馬說》）、柳宗元（《永州八記》《捕蛇者說》）倡導古文運動，效仿先秦兩漢樸實無華之風格，反對駢文。唐宋八大家由此而來。',note:'古文運動是中國散文史上最重要的文體革新運動',st:2},
+{nm:'唐 → 近體詩（今體詩）',cont:'唐代新興詩體，與古體詩相對。嚴格規定平仄、對偶、押韻（一韻到底）。分三種：絕句（4句，20或28字）、律詩（8句，40或56字）、排律（8句以上）。各有五言七言兩種。',note:'沈佺期宋之問完成五律格律；杜審言完成七律格律',st:3},
+{nm:'宋 → 詞',cont:'配合音樂的歌詞，為詩與音樂結合的音樂文學。別稱：詩餘、長短句、曲子詞、樂府、倚聲。按字數分：小令（≤58字，又稱「令」）、中調（59–90字，又稱「引」「近」）、長調（≥91字，又稱「慢」「慢詞」）。',note:'發始於中唐，滋衍於五代，造極於兩宋',st:3},
+{nm:'元 → 曲',cont:'元代新興文體，又稱詞餘、樂府。長短句，可加襯字（與詞的最大區別）。分兩類：散曲（無科白，含小令和套數）、劇曲（有科白，含雜劇和傳奇）。風格詼諧淺俗，有科白能合樂。',note:'北曲無入聲；通首同韻無換韻之例',st:3},
+{nm:'明 → 小說（章回小說）',cont:'中國古代小說源自「街談巷議，道聽塗說」（「小說」一詞最早見於《莊子·外物篇》）。明清章回小說是最成熟的小說形式。四大奇書：《水滸傳》《三國演義》《西遊記》《金瓶梅》。清代加上《紅樓夢》《儒林外史》。',note:'章回小說由宋元長篇話本發展而來；《聊齋志異》為文言短篇非章回',st:3},
+{nm:'清 → 傳奇（戲曲）',cont:'源自南曲，受雜劇影響而成。五大傳奇：《琵琶記》（高明著）、《荊釵記》《白兔記》《拜月亭》《殺狗記》。湯顯祖《牡丹亭》為昆曲傳奇代表（明代）。清代京劇形成（道光年間）。',note:'傳奇之首：《琵琶記》',st:2},
+{nm:'近代 → 新詩·現代小說',cont:'新詩（白話詩）：五四運動後產生，以白話文撰寫，與舊詩相對。胡適倡導。現代小說：魯迅《狂人日記》（1918）為第一部白話小說。民國以後東西小說風格逐漸合流。',note:'',st:2},
+],
+'fu':[
+{nm:'賦的起源',cont:'1. 創始於楚辭：屈原（戰國楚國）為中國辭賦之祖，著《離騷》等25篇，為最早之辭賦。<br>2. 起名於荀子：荀子（戰國）《賦篇》最早用「賦」做篇名。<br>3. 班固（東漢）云：「賦者，古詩之流也」「不歌而誦謂之賦」。',note:'賦之名源自《詩經》六義之「賦」，但漢賦實承楚辭與荀子賦篇而來',st:2},
+{nm:'賦的黃金時代',cont:'漢代為賦之黃金時代：<br>• 賈誼（西漢）：上承屈原宋玉，下開枚乘司馬相如，開漢賦先聲。代表作《鵩鳥賦》《弔屈原賦》<br>• 司馬相如（西漢）：有「賦聖」之譽。代表作《子虛賦》《上林賦》《長門賦》<br>• 漢賦四大家：司馬相如、揚雄（《甘泉賦》）、班固（《兩都賦》）、張衡（《二京賦》）',note:'司馬相如=賦聖',st:2},
+{nm:'賦體種類演變',cont:'1. 短賦：先秦（荀子《賦篇》）<br>2. 古賦/大賦：漢代（重鋪張，多長篇巨幅）<br>3. 俳賦/駢賦/小賦：六朝<br>4. 律賦：唐代<br>5. 散賦/文賦：晚唐及宋代<br>散賦名篇：杜牧《阿房宮賦》、歐陽修《秋聲賦》、蘇軾《前赤壁賦》',note:'從大賦→小賦→文賦，趨勢是由繁→簡、由鋪張→抒情',st:2},
+],
+'shi':[
+{nm:'近體詩概說',cont:'唐代新興詩體，又稱今體詩，與古體詩相對。嚴格規定：字數固定、平仄有定式、一韻到底（不可換韻）。分三種：絕句、律詩、排律。各有五言和七言兩種。',note:'',st:3},
+{nm:'絕句',cont:'每首四句。五言絕句20字，七言絕句28字。<br>押韻規則：二四句押韻，第三句不可押韻，首句可押可不押，一韻到底。<br>有平起、仄起二式（以首句第二字平仄為依據）。<br>絕句先於律詩出現，可入樂可歌詠。',note:'',st:2},
+{nm:'律詩',cont:'每首八句，分四聯：首聯（一二句）、頷聯（三四句）、頸聯（五六句）、尾聯（七八句）。<br>五言律詩40字，七言律詩56字。<br><b>中間兩聯（頷聯、頸聯）必須對偶</b>。<br>偶數句押韻，首句押韻為正格不押為變格。<br>格律完成者：沈佺期、宋之問（五律）；杜審言（七律）——均為初唐詩人。',note:'「首聯頷聯頸聯尾聯」和「中間兩聯必須對偶」是高頻考點',st:3},
+{nm:'排律',cont:'八句以上之偶數句。格律大致和律詩相同。字數不限。',note:'',st:1},
+{nm:'古體詩vs近體詩',cont:'<b>古詩</b>：句數不定，字數不定（五七言為多），平仄不嚴，可換韻，對偶不嚴。<br><b>近體詩</b>：句數固定（絕句4句/律詩8句），字數固定，每句平仄有規定，一韻到底，律詩中間兩聯須對偶。',note:'核心區別：近體詩有嚴格格律限制，古體詩沒有',st:3},
+],
+'ci':[
+{nm:'詞的性質與別稱',cont:'詞＝配合音樂的歌詞，詩與音樂結合的音樂文學。<br>五個別稱：<br>1.「曲子詞」→簡稱「詞」（須合樂）<br>2.「詩餘」（由詩演化而來）<br>3.「長短句」（句法參差長短不齊）<br>4.「樂府」（入樂之歌辭）<br>5.「倚聲」（依格律填詞）',note:'五個別稱都可能出選擇題',st:3},
+{nm:'詞的體制分類',cont:'按字數分三類：<br>• <b>小令</b>：58字以內，又稱「令」<br>• <b>中調</b>：59–90字，又稱「引」「近」<br>• <b>長調</b>：91字以上，又稱「慢」「慢詞」<br>每闋詞有詞牌（詞調），表明依據的曲調樂譜。一闋分一段或數段（片），以兩段者居多。',note:'小令≤58 / 中調59–90 / 長調≥91 的分界數字是考點',st:2},
+{nm:'詞的流變',cont:'發始於<b>中唐</b>，滋衍於<b>五代</b>，造極於<b>兩宋</b>。<br>風格兩大派：<br>• <b>婉約派</b>（宋詞正宗）：以李清照為宗<br>• <b>豪放派</b>（變格）：以辛棄疾稱首',note:'「婉約為正宗，豪放為變格」是重要判斷',st:3},
+{nm:'詞的重要人物',cont:'1. <b>詞祖</b>：李白（唐），《菩薩蠻》《憶秦娥》二闋被推為詞之始<br>2. <b>詞家三李</b>：李白、李煜、李清照<br>3. <b>詞中之帝</b>：李煜（南唐後主，《虞美人》「春花秋月何時了」）<br>4. <b>詞中之龍</b>：辛棄疾（南宋）<br>5. <b>詞之集大成</b>：周邦彥（北宋）<br>6. <b>閨秀詞人第一</b>：李清照（南宋）<br>7. <b>花間鼻祖/第一位詞人</b>：溫庭筠（晚唐）<br>8. <b>最早將詞詩化（予詞作子題）</b>：蘇軾（北宋）<br>9. <b>慢詞之祖</b>：柳永（北宋）',note:'這些「之祖/之帝/之龍/第一」是考試超高頻考點',st:3},
+],
+'qu':[
+{nm:'曲的概述',cont:'元代新興文體，又稱詞餘、樂府。屬韻文，為北方金國宮調發展而來。<br>與詞的最大區別：<b>可加襯字</b>（字句不一定）。<br>風格：詼諧淺俗（vs 詞的端莊典雅）。有科白（vs 詞無科白）。',note:'「可加襯字」「有科白」是詞曲比較的核心區分點',st:2},
+{nm:'散曲分類與風格',cont:'散曲＝無科白（純唱）：<br>• 小令（單支曲）<br>• 套數/散套（多支曲聯套）<br>風格兩派：<br>1. 豪放樸質：以<b>馬致遠</b>為代表<br>2. 清麗俊逸：以<b>張可久</b>為代表（創作數量最多，曲壇宗匠）<br>前期風格質樸（關漢卿馬致遠白樸），後期典麗（張養浩喬吉張可久）。',note:'',st:2},
+{nm:'曲的重要人物與作品',cont:'<b>元曲四大家</b>：關漢卿、馬致遠、白樸、鄭光祖<br><b>元劇四大家</b>：關漢卿、馬致遠、白樸、<b>王實甫</b>（注意與上不同！）<br><b>曲壇宗匠</b>：張可久（創作最多）<br><b>元曲雙璧</b>：喬吉、張可久<br><b>重要作品</b>：<br>• 元劇之冠：《漢宮秋》（馬致遠著）<br>• 北曲第一：《西廂記》（王實甫著）<br>• 傳奇之首：《琵琶記》（高明著）',note:'注意「元曲四大家」vs「元劇四大家」的第四人不同（鄭光祖vs王實甫）',st:3},
+],
+'novel':[
+{nm:'小說發展概說',cont:'「小說」一詞最早見於《莊子·外物篇》。中國古代小說＝街談巷議道聽塗說，與現代小說概念不同。<br>清金聖歎評<b>六大才書</b>：《莊子》《離騷》《史記》《杜詩》《水滸傳》《西廂記》。',note:'「小說」出處和「六大才書」都是常考點',st:2},
+{nm:'魏晉南北朝 → 筆記小說',cont:'分兩類：<br>• <b>志怪</b>：《搜神記》（東晉干寶著，記鬼神怪異故事）——志怪小說代表<br>• <b>志人</b>：《世說新語》（南朝宋劉義慶著，記魏晉名士言行軼事）——志人小說代表<br>筆記小說在《四庫全書》中入子部。魏晉南北朝以志怪較盛行。',note:'干寶《搜神記》=志怪代表；劉義慶《世說新語》=志人代表',st:2},
+{nm:'唐 → 傳奇小說',cont:'已具備短篇小說之完整形式（有情節、人物、結構），為<b>文言短篇小說</b>。<br>代表作品：<br>• 元稹：《崔鶯鶯傳》（又名《會真記》，《西廂記》取材於此）<br>• 白行簡：《李娃傳》<br>• 杜光庭：《虬髯客傳》<br>唐傳奇多為元明戲劇所取材。',note:'唐傳奇=文言短篇小說的成熟',st:2},
+{nm:'宋元 → 話本小說',cont:'話本＝說書者的底稿，是白話小說的前身。<br>• 短篇：《京本通俗小說》、「三言二拍」（明代馮夢龍《喻世明言》《警世通言》《醒世恆言》＋凌濛初《初刻拍案驚奇》《二刻拍案驚奇》）<br>• 長篇：《三國平話》等<br><b>章回小說由宋元長篇話本發展而來</b>。',note:'「三言」=馮夢龍；「二拍」=凌濛初。話本→章回小說的演變線',st:2},
+{nm:'明清 → 章回小說',cont:'<b>四大奇書</b>（明）：《水滸傳》（施耐庵）《三國演義》（羅貫中）《西遊記》（吳承恩）《金瓶梅》（蘭陵笑笑生，作者真名不詳）<br><b>清代重要小說</b>：《紅樓夢》（曹雪芹）、《儒林外史》（吳敬梓，諷刺小說）、《老殘遊記》（劉鶚）<br>注意：《聊齋志異》（清蒲松齡）為<b>文言短篇</b>小說，非章回小說。<br>章回小說均<b>未入《四庫全書》</b>。',note:'「四大奇書」vs「四大名著」：奇書含《金瓶梅》不含《紅樓夢》；名著反之',st:3},
+],
+'compare':[
+{nm:'韻文 vs 非韻文',cont:'<b>韻文</b>（有押韻）：詩經、楚辭、漢賦、樂府詩、古詩、近體詩、宋詞、元曲<br><b>非韻文</b>（無押韻）：駢文、散文（古文）、小說',note:'賦雖介於詩文之間但屬韻文',st:2},
+{nm:'《詩經》vs《楚辭》',cont:'<b>時代</b>：詩經=西周至春秋 / 楚辭=戰國<br><b>地區</b>：北方 / 南方<br><b>句法</b>：四言為主 / 長短自由（六七言為多）<br><b>風格</b>：重寫實（現實主義）/ 重浪漫（浪漫主義）<br><b>內容</b>：取材社會生活 / 描寫個人情感多寫神話<br><b>作者</b>：平民文學多不可考 / 貴族文學多有姓名<br><b>地位</b>：韻文之祖、純文學之祖、四言代表 / 辭賦之祖',note:'這是文學比較題的經典考法',st:3},
+{nm:'樂府詩 vs 古體詩',cont:'<b>音樂</b>：樂府可入樂 / 古詩不可入樂<br><b>作者</b>：民間採集多不可考 / 多為有名文人<br><b>句法</b>：自由多長短句 / 較嚴整多五七言<br><b>風格</b>：記功述事貴遒勁 / 主言情尚溫雅<br><b>辭藻</b>：多熱情之詞 / 多含蓄之言<br><b>共同點</b>：同為漢代詩歌文學之雙葩；可換韻句數不定',note:'',st:2},
+{nm:'詞 vs 曲',cont:'<b>句式</b>：詞字句一定 / 曲可加襯字字句不一<br><b>種類</b>：詞=小令中調長調 / 曲=散曲（小令套數）＋劇曲（雜劇傳奇）<br><b>格律</b>：詞分平仄可換韻 / 曲分平上去入（北曲無入聲），通首同韻不換韻<br><b>風格</b>：詞端莊典雅 / 曲詼諧淺俗<br><b>科白</b>：詞無科白 / 曲有科白<br><b>共同點</b>：都是長短句，都能合樂',note:'「可加襯字」「有無科白」「能否換韻」是三大區分要素',st:3},
+{nm:'小說體裁演變線',cont:'筆記小說（魏晉南北朝，志怪志人）→ 傳奇小說（唐，文言短篇成熟）→ 話本小說（宋元，白話說書稿本）→ 章回小說（明清，長篇白話成熟）→ 現代小說（民國，魯迅《狂人日記》1918）',note:'每個階段的代表作和作者都要記住',st:3},
+{nm:'文體流變總演變線',cont:'《詩經》（春秋四言）→《楚辭》（戰國長短句）→ 賦（漢，不歌而誦）→ 樂府詩＋古詩（漢，詩歌雙葩）→ 駢文（魏晉南北朝，四六文）→ 古文復興＋近體詩（唐，散文＋格律詩）→ 詞（宋，音樂文學）→ 曲（元，可加襯字有科白）→ 章回小說（明清）→ 新詩＋白話小說（近代）',note:'這條線就是考試指南「文體流變」的完整脈絡',st:3},
+],
+};
+
+
+var curCat='timeline';
+function sw(id){curCat=id;rT();rC();}
+function rT(){var h='';for(var i=0;i<TABS.length;i++){var c=TABS[i];h+='<button class="tab'+(curCat===c.id?' on':'')+'" style="'+(curCat===c.id?'background:'+c.color:'')+'" onclick="sw(\''+c.id+'\')">'+c.n+'</button>';}document.getElementById('tabs').innerHTML=h;}
+function rC(){var cat;for(var i=0;i<TABS.length;i++){if(TABS[i].id===curCat){cat=TABS[i];break;}}var items=DATA[curCat]||[];var h='<div class="cards">';for(var j=0;j<items.length;j++){var it=items[j];var stars='\u2605'.repeat(it.st);h+='<div class="card" style="background:'+cat.bg+';color:'+cat.tx+'" onclick="oM(\''+curCat+'\','+j+')">';h+='<div class="nm"><span class="star">'+stars+'</span> '+it.nm+'</div>';h+='<div class="ct">'+it.cont+'</div>';if(it.note)h+='<div class="nt">'+it.note+'</div>';h+='</div>';}h+='</div>';document.getElementById('content').innerHTML=h;}
+function oM(catId,idx){var cat;for(var i=0;i<TABS.length;i++){if(TABS[i].id===catId){cat=TABS[i];break;}}var it=DATA[catId][idx];var freq=['','偶考','常考','必考高頻'][it.st];var h='<button class="cb" onclick="cM()">\u00d7</button>';h+='<h3>'+it.nm+'</h3>';h+='<span class="mt" style="background:'+cat.bg+';color:'+cat.tx+'">'+cat.n+'</span>';h+='<span class="mt" style="background:#FAEEDA;color:#633806"><span class="star">'+'\u2605'.repeat(it.st)+'</span> '+freq+'</span>';h+='<div class="row"><div class="label">\u5167\u5bb9</div><div class="val">'+it.cont+'</div></div>';if(it.note)h+='<div class="row"><div class="label">\u8003\u8a66\u5099\u8a3b</div><div class="val" style="color:#555">'+it.note+'</div></div>';document.getElementById('mc').innerHTML=h;document.getElementById('ov').className='ov show';}
+function cM(){document.getElementById('ov').className='ov';}
+rT();rC();
+
+</script>
+</body>
+</html>

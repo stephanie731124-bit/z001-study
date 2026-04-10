@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Z001 中華文化備考資料庫</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,"PingFang TC","Microsoft JhengHei",sans-serif;color:#1a1a1a;background:#f7f6f3;line-height:1.7}
+.c{max-width:720px;margin:0 auto;padding:20px 16px}
+.hero{padding:14px 0 16px 0;text-align:center}
+h1{font-size:26px;font-weight:700;margin-bottom:6px}
+.sub{font-size:19px;color:#888;margin-bottom:4px}
+.meta{font-size:15px;color:#aaa}
+.page-tabs{display:flex;gap:8px;margin:18px 0 20px 0;padding:6px;background:#ececec;border-radius:12px}
+.ptab{flex:1;text-align:center;padding:12px 10px;border-radius:8px;font-size:19px;font-weight:600;cursor:pointer;color:#666;transition:.2s;border:none;background:transparent;font-family:inherit}
+.ptab.on{background:#fff;color:#1a1a1a;box-shadow:0 2px 8px rgba(0,0,0,.08)}
+.view{display:none}
+.view.on{display:block}
+.section{margin-top:20px}
+.section-title{font-size:19px;font-weight:700;color:#555;margin-bottom:12px;padding-left:4px}
+.cards{display:flex;flex-direction:column;gap:12px}
+a{text-decoration:none;color:inherit;display:block}
+.card{padding:20px 22px;border-radius:12px;border:1px solid transparent;transition:.15s}
+.card:active{opacity:.8}
+.card-header{display:flex;align-items:center;gap:10px;margin-bottom:6px}
+.icon{font-size:28px;line-height:1}
+h2{font-size:26px;font-weight:700}
+p{font-size:19px;line-height:1.75;margin-top:4px}
+.tag{display:inline-block;font-size:15px;padding:3px 10px;border-radius:12px;margin-top:10px;font-weight:500}
+.footer{margin-top:40px;padding:20px 0;text-align:center;font-size:15px;color:#999;border-top:1px solid #e8e8e8}
+.exam-info{background:#fff8ed;border:1px solid #f5dbaa;padding:14px 18px;border-radius:10px;margin-top:6px;font-size:19px;color:#6b4419;line-height:1.9}
+.exam-info b{color:#8b4513}
+.old-notice{background:#f0f0f0;border:1px solid #ddd;padding:14px 18px;border-radius:10px;margin-top:6px;font-size:17px;color:#666;line-height:1.8}
+</style>
+</head>
+<body>
+<div class="c">
+<div class="hero">
+<h1>📚 Z001 中華文化備考資料庫</h1>
+<div class="sub">港澳台研究生招生考試・綜合能力（一）</div>
+<div class="meta">2026 新大綱 · 兩個版本對照</div>
+</div>
+
+<div class="page-tabs">
+<button class="ptab on" onclick="switchView('new')" id="tab-new">📗 適配考綱版</button>
+<button class="ptab" onclick="switchView('old')" id="tab-old">📕 舊版</button>
+</div>
+
+<div class="view on" id="view-new">
+
+<div class="exam-info">
+<b>🎯 考試信息</b><br>
+中華文化 55 分（文化常識 20×2 + 閱讀理解 5×3）<br>
+<b>2026 新大綱</b>：中華優秀傳統文化、中華民族多元一體
+</div>
+
+<div class="section">
+<div class="section-title">五大考綱主題</div>
+<div class="cards">
+
+<a href="pages/philosophy.html">
+<div class="card" style="background:#FAECE7;color:#712B13">
+<div class="card-header"><div class="icon">📕</div><h2>中國哲學常識</h2></div>
+<p>先秦諸子百家（儒道墨法名陰陽兵農縱橫雜）· 後代學派流變 · 古代宗教</p>
+<span class="tag" style="background:#993C1D;color:#fff">7 分頁 · 52 條</span>
+</div>
+</a>
+
+<a href="pages/history.html">
+<div class="card" style="background:#E1F5EE;color:#085041">
+<div class="card-header"><div class="icon">📗</div><h2>中國歷史學常識</h2></div>
+<p>朝代更替 · 中央官制 · 地方行政 · 選官科舉 · 賦稅經濟 · 軍事戰爭 · 禮俗稱謂 · 史學典籍</p>
+<span class="tag" style="background:#1D9E75;color:#fff">8 分頁 · 84 條</span>
+</div>
+</a>
+
+<a href="pages/literature.html">
+<div class="card" style="background:#EEEDFE;color:#3C3489">
+<div class="card-header"><div class="icon">📘</div><h2>中國文學常識</h2></div>
+<p>文體流變（詩經→楚辭→漢賦→樂府→唐詩→宋詞→元曲→明清小說）· 代表作家 · 流派合稱 · 文學總集 · 民族史詩</p>
+<span class="tag" style="background:#534AB7;color:#fff">5 分頁 · 48 條</span>
+</div>
+</a>
+
+<a href="pages/art.html">
+<div class="card" style="background:#FAEEDA;color:#633806"> 
+<div class="card-header"><div class="icon">📙</div><h2>中國藝術常識</h2></div>
+<p>書法 · 繪畫（十大名畫） · 雕塑（三大石窟） · 建築 · 音樂（十大古曲） · 戲劇 · 民俗</p>
+<span class="tag" style="background:#BA7517;color:#fff">7 分頁 · 45 條</span>
+</div>
+</a>
+
+<a href="pages/sci-tech.html">
+<div class="card" style="background:#E6F1FB;color:#0C447C">
+<div class="card-header"><div class="icon">📒</div><h2>中國古代科技常識</h2></div>
+<p>天文曆法 · 算學 · 地理輿圖 · 農業水利 · 醫學（中醫四大經典） · 四大發明</p>
+<span class="tag" style="background:#378ADD;color:#fff">6 分頁 · 41 條</span>
+</div>
+</a>
+
+</div>
+</div>
+
+<div class="section">
+<div class="section-title">備考工具</div>
+<div class="cards">
+
+<a href="pages/sprint.html">
+<div class="card" style="background:#FFEBEB;color:#7A1515">
+<div class="card-header"><div class="icon">⚡</div><h2>考前衝刺速記</h2></div>
+<p>之最第一 · 必考時間 · 合稱速記 · 封號速記 · 演變主線 · 歷年真題重點</p>
+<span class="tag" style="background:#C73E3E;color:#fff">6 分頁 · 31 條 · 1-2 小時複習</span>
+</div>
+</a>
+
+<a href="pages/timeline.html">
+<div class="card" style="background:#F5EDE4;color:#5C2E0A">
+<div class="card-header"><div class="icon">📅</div><h2>歷代政權時間軸</h2></div>
+<p>從夏商到民國的完整時間軸 · 北方/中原/南方三區顯示並存政權</p>
+<span class="tag" style="background:#8B4513;color:#fff">31 個政權 · 豎排手機瀏覽</span>
+</div>
+</a>
+
+</div>
+</div>
+
+</div>
+
+<div class="view" id="view-old">
+
+<div class="old-notice">
+📕 這是重構前的舊版資料庫（按主題分類，內容有重疊）<br>
+新版已按考綱重新整合，建議以新版為主，舊版作為備查
+</div>
+
+<div class="section">
+<div class="section-title">舊版資料庫</div>
+<div class="cards">
+
+<a href="pages/old/knowledge-base.html">
+<div class="card" style="background:#E8F2FC;color:#1E4E8C">
+<div class="card-header"><div class="icon">📚</div><h2>知識庫（按板塊）</h2></div>
+<p>7 大板塊（諸子百家·文學·書畫·歷史·制度·科技·節日民俗）× 歷代朝代</p>
+<span class="tag" style="background:#1E4E8C;color:#fff">76 條</span>
+</div>
+</a>
+
+<a href="pages/old/quick-ref.html">
+<div class="card" style="background:#FFF5E6;color:#A0521D">
+<div class="card-header"><div class="icon">⚡</div><h2>合稱·鼻祖·之最</h2></div>
+<p>各種合稱（四大家、八大家等）+ 鼻祖聖號 + 變法 + 「第一」集錦</p>
+<span class="tag" style="background:#A0521D;color:#fff">102 條</span>
+</div>
+</a>
+
+<a href="pages/old/literary-forms.html">
+<div class="card" style="background:#EFE4F5;color:#5A2D82">
+<div class="card-header"><div class="icon">📜</div><h2>文體流變</h2></div>
+<p>詩經→楚辭→賦→樂府→古體詩→近體詩→詞→曲→小說</p>
+<span class="tag" style="background:#5A2D82;color:#fff">39 條</span>
+</div>
+</a>
+
+<a href="pages/old/supplement.html">
+<div class="card" style="background:#E8F5E9;color:#2E6E33">
+<div class="card-header"><div class="icon">📝</div><h2>補充知識</h2></div>
+<p>近代思想家·經濟發展·軍事戰爭·重要條約等</p>
+<span class="tag" style="background:#2E6E33;color:#fff">63 條</span>
+</div>
+</a>
+
+<a href="pages/old/script-guide.html">
+<div class="card" style="background:#F5E6E6;color:#8B2A2A">
+<div class="card-header"><div class="icon">✍️</div><h2>漢字字體辨識</h2></div>
+<p>甲骨文·金文·大篆·小篆·隸書·楷書·行書·草書</p>
+<span class="tag" style="background:#8B2A2A;color:#fff">8 字體</span>
+</div>
+</a>
+
+<a href="pages/old/sci-tech.html">
+<div class="card" style="background:#E6F0FA;color:#1A4A7A">
+<div class="card-header"><div class="icon">🔬</div><h2>科技常識（舊版）</h2></div>
+<p>天文曆法算學·地理輿圖·農業水利·醫學·科技發明</p>
+<span class="tag" style="background:#1A4A7A;color:#fff">51 條</span>
+</div>
+</a>
+
+<a href="pages/old/politics.html">
+<div class="card" style="background:#FAECE7;color:#7A2A0E">
+<div class="card-header"><div class="icon">🏛️</div><h2>政治制度（按朝代）</h2></div>
+<p>中央官制·地方行政·選官制度·賦稅制度 × 9 個朝代</p>
+<span class="tag" style="background:#7A2A0E;color:#fff">9 朝代</span>
+</div>
+</a>
+
+<a href="pages/old/dynasties.html">
+<div class="card" style="background:#F0E6FA;color:#4B2D7A">
+<div class="card-header"><div class="icon">🏯</div><h2>朝代更替</h2></div>
+<p>先秦·秦漢·魏晉南北朝·隋唐·宋元·明清·近代</p>
+<span class="tag" style="background:#4B2D7A;color:#fff">38 條</span>
+</div>
+</a>
+
+<a href="pages/old/culture-extra.html">
+<div class="card" style="background:#FAF4E1;color:#7A5A1A">
+<div class="card-header"><div class="icon">🎭</div><h2>文化常識補充</h2></div>
+<p>民俗·服飾·飲食·戲劇·建築·文物</p>
+<span class="tag" style="background:#7A5A1A;color:#fff">27 條</span>
+</div>
+</a>
+
+<a href="pages/old/modern-history.html">
+<div class="card" style="background:#E8E8F5;color:#3B3B8C">
+<div class="card-header"><div class="icon">📰</div><h2>近代史專題</h2></div>
+<p>晚清戰爭條約·政治經濟·思想文化·社會生活變遷</p>
+<span class="tag" style="background:#3B3B8C;color:#fff">近代史</span>
+</div>
+</a>
+
+<a href="pages/old/timeline.html">
+<div class="card" style="background:#F5EDE4;color:#5C2E0A">
+<div class="card-header"><div class="icon">📅</div><h2>歷代政權時間軸（舊版）</h2></div>
+<p>時間軸視覺化舊版</p>
+<span class="tag" style="background:#8B4513;color:#fff">時間軸</span>
+</div>
+</a>
+
+</div>
+</div>
+
+</div>
+
+<div class="footer">
+📖 2026 Z001 中華文化備考資料庫<br>
+新版（7 頁面共 332 條）· 舊版（11 頁面）
+</div>
+</div>
+
+<script>
+function switchView(v){
+  var views=document.querySelectorAll('.view');
+  for(var i=0;i<views.length;i++){views[i].classList.remove('on');}
+  document.getElementById('view-'+v).classList.add('on');
+  var tabs=document.querySelectorAll('.ptab');
+  for(var i=0;i<tabs.length;i++){tabs[i].classList.remove('on');}
+  document.getElementById('tab-'+v).classList.add('on');
+  window.scrollTo(0,0);
+}
+</script>
+</body>
+</html>

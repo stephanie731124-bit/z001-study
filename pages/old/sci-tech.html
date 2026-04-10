@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Z001 古代科技常識專題</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,"PingFang TC","Microsoft JhengHei",sans-serif;color:#1a1a1a;background:#f7f6f3;line-height:1.7}
+.c{max-width:720px;margin:0 auto;padding:14px 16px}
+h1{font-size:26px;font-weight:700}
+.sub{font-size:19px;color:#999;margin-bottom:12px}
+.tabs{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:14px;position:sticky;top:0;z-index:10;background:#f7f6f3;padding:8px 0}
+.tab{font-size:19px;padding:8px 14px;border-radius:18px;border:1px solid #e5e5e5;background:#fff;cursor:pointer;color:#555;font-weight:500;white-space:nowrap;transition:.15s}
+.tab.on{color:#fff;border-color:transparent}
+.leg{font-size:19px;color:#999;margin-bottom:12px;display:flex;gap:8px;flex-wrap:wrap}
+.star{color:#BA7517}
+.cards{display:flex;flex-direction:column;gap:8px}
+.card{padding:16px 18px;border-radius:10px;cursor:pointer;transition:.12s;border:1px solid transparent}
+.card:hover{border-color:rgba(0,0,0,.12);transform:translateX(2px)}
+.card .nm{font-weight:700;font-size:26px;margin-bottom:6px;display:flex;align-items:center;gap:5px;flex-wrap:wrap}
+.card .ct{font-size:19px;line-height:1.8}
+.card .nt{font-size:19px;opacity:.65;margin-top:6px;border-top:1px solid rgba(0,0,0,.08);padding-top:6px}
+.ov{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.5);z-index:100;align-items:center;justify-content:center;padding:12px}
+.ov.show{display:flex}
+.md{background:#fff;border-radius:12px;max-width:560px;width:100%;max-height:85vh;overflow-y:auto;padding:22px;box-shadow:0 20px 60px rgba(0,0,0,.2)}
+.md h3{font-size:26px;font-weight:700;margin-bottom:8px}
+.md .mt{display:inline-block;font-size:19px;padding:4px 10px;border-radius:10px;margin-bottom:8px;margin-right:4px;font-weight:500}
+.md .row{margin-bottom:12px}
+.md .row .label{font-size:19px;color:#999;font-weight:600;margin-bottom:3px}
+.md .row .val{font-size:26px;line-height:1.9}
+.md .cb{float:right;border:none;background:none;font-size:26px;cursor:pointer;color:#999;line-height:1}
+.md .cb:hover{color:#333}
+</style>
+</head>
+<body>
+<div class="c">
+<h1>中國古代科技常識</h1>
+<div class="sub">依考試指南五大分類 · 天文曆法算學/地理輿圖/農業水利/醫學/科技發明 · 共51條</div>
+<div class="tabs" id="tabs"></div>
+<div class="leg"><span class="star">★★★</span>必考 <span class="star">★★</span>常考 <span class="star">★</span>偶考</div>
+<div id="content"></div>
+</div>
+<div class="ov" id="ov" onclick="if(event.target===this)cM()"><div class="md" id="mc"></div></div>
+<script>
+var TABS=[{"id": "astro", "n": "天文曆法·算學", "color": "#534AB7", "bg": "#EEEDFE", "tx": "#3C3489"}, {"id": "geo", "n": "地理輿圖", "color": "#1D9E75", "bg": "#E1F5EE", "tx": "#085041"}, {"id": "agri", "n": "農業水利", "color": "#BA7517", "bg": "#FAEEDA", "tx": "#633806"}, {"id": "med", "n": "醫學", "color": "#D4537E", "bg": "#FBEAF0", "tx": "#72243E"}, {"id": "inv", "n": "科技發明", "color": "#378ADD", "bg": "#E6F1FB", "tx": "#0C447C"}];
+
+var DATA={
+'astro':[
+{nm:'《甘石星經》',cont:'<b>戰國</b>甘德著《天文星占》＋石申著《天文》，後人合編。<b>世界現存最早的天文學著作</b>。甘德發現木星衛星（比伽利略早近2000年）。石申繪製世界最早星表（記載800多顆恆星）。',note:'最早天文著作＋最早星表',st:2},
+{nm:'二十四節氣',cont:'春秋戰國萌芽（最初只有二至二分），戰國時期形成完整體系。反映太陽在黃道上的24個位置，指導農業生產。<br><b>春</b>：立春→雨水→驚蟄→春分→清明→穀雨<br><b>夏</b>：立夏→小滿→芒種→夏至→小暑→大暑<br><b>秋</b>：立秋→處暑→白露→秋分→寒露→霜降<br><b>冬</b>：立冬→小雪→大雪→冬至→小寒→大寒<br><b>2016年入選聯合國非物質文化遺產</b>。',note:'「四立」定四季開始；「二分」晝夜平分；「二至」極值。考試高頻',st:3},
+{nm:'蓋天說vs渾天說',cont:'<b>蓋天說</b>（先秦）：「天圓地方」，天如蓋覆蓋大地，日月星辰在天蓋上運行。<br><b>渾天說</b>（西漢落下閎提出→東漢張衡完善）：「天之包地，猶殼之裹黃」——天地都是球形，天包地如雞蛋殼包蛋黃。張衡據此製造渾天儀。',note:'渾天說是中國古代最重要、影響最大的宇宙學說',st:2},
+{nm:'張衡（東漢）',cont:'78–139年。完善渾天說，製造<b>渾天儀</b>（演示天體運行）和<b>候風地動儀</b>（測地震方向，世界最早地震儀器）。著《靈憲》，測定日月角直徑誤差僅2分。',note:'渾天儀＋地動儀，兩大發明',st:3},
+{nm:'落下閎與《太初曆》',cont:'<b>西漢</b>天文學家。製作渾天儀觀測天象，主持編制<b>《太初曆》</b>（前104年頒行），以正月為歲首（沿用至今），首次將二十四節氣納入曆法。預言「後八百年，此曆差一日」。',note:'確定正月為歲首＋節氣入曆',st:2},
+{nm:'僧一行（唐）',cont:'張遂（673–727），法號一行。編制<b>《大衍曆》</b>，是具有創新精神的曆法。世界首次<b>實測地球子午線長度</b>。發現恆星會移動（比英國哈雷早千年）。改進渾天儀為「渾天銅儀」。',note:'首測子午線＋恆星移動',st:2},
+{nm:'郭守敬（元）',cont:'1231–1316年。編制<b>《授時曆》</b>（1281年），推算一年為365.2425天——與現代公曆完全一致，比歐洲格里曆早300年。創制<b>簡儀</b>（簡化渾天儀）、仰儀等天文儀器。在全國設<b>27個觀測站</b>。',note:'《授時曆》精度=現代公曆，早300年',st:3},
+{nm:'重要曆法演變',cont:'<b>《顓頊曆》</b>（秦，以十月為歲首）→<b>《太初曆》</b>（西漢落下閎，正月為歲首，節氣入曆）→<b>《大明曆》</b>（南朝祖沖之）→<b>《大衍曆》</b>（唐僧一行）→<b>《授時曆》</b>（元郭守敬，精度最高）',note:'曆法演變線也是可能的考點',st:2},
+{nm:'《九章算術》',cont:'<b>東漢</b>（成書於西漢至東漢間），作者不詳。中國古代最重要的數學著作。共246個問題，9章分類。涉及面積計算、比例、開平方、方程（含聯立方程）、勾股定理等。',note:'中國數學的經典之作',st:2},
+{nm:'祖沖之（南朝）',cont:'429–500年。計算圓周率π精確到<b>3.1415926–3.1415927</b>之間，求得密率<b>355/113</b>——領先世界近<b>1000年</b>（歐洲16世紀才達到）。編制《大明曆》。著《綴術》（已佚）。',note:'密率355/113是核心記憶點',st:3},
+{nm:'《周髀算經》',cont:'<b>西漢</b>（部分內容更早），作者不詳。中國現存最早的數學著作之一。記載勾股定理（「勾三股四弦五」）和日影測量方法。以蓋天說為基礎。',note:'勾股定理的最早記載',st:1},
+{nm:'算籌與珠算',cont:'<b>算籌</b>：春秋戰國起使用的計算工具，用竹棍擺放表示數字。<br><b>算盤</b>（珠算）：元明時期廣泛使用。明代程大位著<b>《算法統宗》</b>（1592年），系統總結珠算方法。珠算2013年入選聯合國非遺。',note:'珠算2013年非遺',st:1},
+],
+'geo':[
+{nm:'《山海經》',cont:'<b>先秦</b>（戰國至西漢初），作者不詳。中國最早的地理文獻之一，兼含神話傳說。記載山川河流、物產風俗、奇異動植物。',note:'地理＋神話的混合文獻',st:2},
+{nm:'裴秀「製圖六體」',cont:'<b>西晉</b>裴秀（224–271），繪製《禹貢地域圖》，提出<b>「製圖六體」</b>——繪製地圖的六項原則：分率（比例尺）、準望（方位）、道里（距離）、高下（地勢高低）、方邪（角度）、迂直（彎曲程度）。被譽為「中國科學製圖學之父」。',note:'「製圖六體」對應考試指南「地理輿圖」',st:2},
+{nm:'《水經注》',cont:'<b>北魏</b>酈道元（約470–527）著。原為漢代桑欽《水經》作注，實為獨立的綜合性地理著作。記載<b>1252條河流</b>的地理信息，兼具文學價值（山水描寫生動優美）。',note:'中國古代地理學經典，兼具文學性',st:2},
+{nm:'《徐霞客遊記》',cont:'<b>明代</b>徐霞客（1587–1641）著。系統考察地貌和水系的地理著作。歷時34年遊歷16省，實地勘察。最早揭示石灰岩溶蝕地貌（喀斯特地貌）。',note:'中國最早的實地考察地理著作',st:2},
+{nm:'《坤輿萬國全圖》',cont:'<b>明萬曆</b>年間（1602年），意大利傳教士<b>利瑪竇</b>繪製，<b>李之藻</b>協助刻印。是中國最早的世界地圖之一，將中國置於地圖中央。',note:'中西文化交流的代表作',st:1},
+{nm:'賈耽《海內華夷圖》',cont:'<b>唐代</b>賈耽（730–805）繪製。是唐代最重要的全國地圖，涵蓋中國及周邊地區。原圖已佚，但影響深遠。',note:'',st:1},
+],
+'agri':[
+{nm:'都江堰',cont:'<b>戰國秦</b>蜀郡太守<b>李冰</b>父子修建（約前256年）。採用「無壩引水」設計，將岷江分為內外兩江，既灌溉又防洪。使成都平原成為「天府之國」。<b>至今仍在使用</b>，2000年入選世界文化遺產。',note:'世界現存最早的大型水利工程，至今使用',st:3},
+{nm:'鄭國渠',cont:'<b>戰國秦</b>，韓國水工<b>鄭國</b>修建（前246年）。灌溉關中平原農田四萬餘頃，使秦國農業大增，為統一六國奠定經濟基礎。',note:'鄭國渠的修建有「疲秦計」的背景故事',st:2},
+{nm:'靈渠',cont:'<b>秦始皇</b>時期修建（前214年），監御史<b>史祿</b>主持。連接長江水系（湘江）和珠江水系（漓江），是世界最古老的運河之一。',note:'溝通南北水系，助秦統一嶺南',st:2},
+{nm:'大運河',cont:'<b>隋煬帝</b>開鑿（605–610年），以<b>洛陽</b>為中心，北達涿郡（北京），南至餘杭（杭州）。連接海河、黃河、淮河、長江、錢塘江<b>五大水系</b>，全長約2700公里。<b>2014年入選世界文化遺產</b>。',note:'世界最長最古老的人工運河',st:3},
+{nm:'《齊民要術》',cont:'<b>北魏</b>賈思勰著。10卷92篇。中國現存<b>最早最完整的農書</b>。系統記述農牧漁業生產技術，涉及糧食作物、蔬菜瓜果、林木、畜牧、釀造等。',note:'世界農學史重要文獻',st:2},
+{nm:'《農書》',cont:'<b>元代</b>王禎著。詳細記載農業生產工具和技術。發明<b>轉輪排字架</b>（改進活字印刷效率），並改進木活字。',note:'王禎兼跨農業和印刷兩個領域',st:1},
+{nm:'《農政全書》',cont:'<b>明代</b>徐光啟著。農業百科全書。引介西方水利知識（與利瑪竇交流成果）。融合中國傳統農學與西方科學。',note:'三大科學巨著之一',st:2},
+{nm:'曲轅犁',cont:'<b>唐代</b>普及的農業工具。改進了犁的結構（直轅→曲轅），更靈活，特別適合水田耕作，大幅提高耕作效率。',note:'唐代農業技術進步的標誌',st:1},
+{nm:'鐵犁牛耕',cont:'<b>春秋戰國</b>時期出現鐵農具和牛耕技術。這一革命性變化導致了生產力提高→私田出現→井田制瓦解→各國變法。',note:'理解春秋戰國社會變革的經濟基礎',st:2},
+{nm:'黃道婆',cont:'<b>元代</b>黃道婆將海南黎族棉紡技術傳入松江（今上海），推動江南棉紡織業發展。改進棉紡織工具（彈棉弓、紡車等）。',note:'中國棉紡織業的關鍵推動者',st:1},
+],
+'med':[
+{nm:'《黃帝內經》',cont:'<b>戰國至西漢</b>成書，作者不詳（假託黃帝與岐伯對話）。分《素問》《靈樞》兩部分。<b>中醫理論的奠基之作</b>。建立了陰陽五行、臟腑經絡、病因病機等基本理論體系。',note:'中醫四大經典之首',st:3},
+{nm:'扁鵲（戰國）',cont:'姓秦名越人。中國古代最著名的醫學家之一。提出<b>望聞問切</b>四診法（中醫診斷的基本方法）。相傳著《難經》（以問答體論述醫學疑難問題）。',note:'四診法：望（看面色）聞（聽聲嗅氣）問（問症狀）切（把脈）',st:2},
+{nm:'張仲景（東漢）',cont:'約150–219年。著<b>《傷寒雜病論》</b>（後世分為《傷寒論》和《金匱要略》）。建立了<b>辨證論治</b>體系（根據症狀辨別病因再決定治療方法）。被尊為<b>「醫聖」</b>。',note:'辨證論治=中醫核心方法論。中醫四大經典之一',st:3},
+{nm:'華佗（東漢）',cont:'約145–208年。發明<b>麻沸散</b>——世界最早的全身麻醉藥（比西方早1600多年）。創<b>五禽戲</b>（模仿虎鹿熊猿鳥五種動物的健身操）。擅長外科手術。',note:'麻沸散＝最早全麻藥；五禽戲＝最早醫療體操',st:2},
+{nm:'《神農本草經》',cont:'<b>東漢</b>成書，作者不詳（假託神農嘗百草）。中國最早的<b>藥物學專著</b>。收錄藥物<b>365種</b>，分上中下三品。確立了中藥學的基本分類方法。',note:'中醫四大經典之一',st:2},
+{nm:'孫思邈（唐）',cont:'581–682年（傳說活到141歲）。著<b>《千金方》</b>（全名《備急千金要方》），全面總結歷代醫藥學成就。被尊為<b>「藥王」</b>。提出「大醫精誠」的醫德思想。',note:'藥王。《千金方》集歷代醫學大成',st:2},
+{nm:'《唐本草》',cont:'<b>唐高宗</b>時期（659年），蘇敬等主持編纂。又稱《新修本草》。世界上<b>最早由國家頒布的藥典</b>（比歐洲早800多年）。收藥844種。',note:'最早國家藥典',st:2},
+{nm:'李時珍（明）',cont:'1518–1593年。歷時27年著<b>《本草綱目》</b>。收錄藥物<b>1892種</b>（新增374種），附方<b>11096個</b>，附圖1160幅。按綱目分類法（16部60類）。達爾文譽為「中國的百科全書」。被尊為<b>「藥聖」</b>。',note:'三大科學巨著之一。收藥1892種是核心數據',st:3},
+{nm:'中醫四大經典',cont:'<b>《黃帝內經》</b>（中醫理論奠基）、<b>《傷寒雜病論》</b>（張仲景，辨證論治）、<b>《神農本草經》</b>（最早藥物學）、<b>《難經》</b>（醫學疑難問答）',note:'四部經典的作者和核心內容要區分',st:2},
+],
+'inv':[
+{nm:'四大發明總覽',cont:'<b>造紙術</b>：東漢蔡倫（105年）改進。<br><b>印刷術</b>：隋唐雕版印刷；北宋畢昇（約1040s）膠泥活字。<br><b>火藥</b>：唐代煉丹家發現，唐末軍事應用。<br><b>指南針</b>：戰國司南（天然磁石）；北宋磁針應用於航海。<br><b>傳播時間</b>：造紙3–4世紀東傳/8世紀西傳；火藥指南針13世紀傳歐洲；印刷術15世紀傳歐洲。',note:'四大發明的朝代歸屬＋傳播時間是必考內容',st:3},
+{nm:'造紙術',cont:'<b>東漢</b>蔡倫（？–121年），105年以樹皮、麻頭、破布、漁網為原料改進造紙術，造出「蔡侯紙」。此前西漢已有原始紙（如放馬灘紙），但質量粗糙不實用。蔡倫改進後紙張質量大幅提升，逐步取代竹簡和帛書。',note:'蔡倫是「改進」非「發明」造紙',st:3},
+{nm:'雕版印刷',cont:'<b>隋唐</b>之際出現。現存最早有明確日期的印刷品為<b>唐</b>代《金剛經》（<b>868年</b>，現藏大英圖書館）。唐代大量印刷佛經和曆書。',note:'《金剛經》868年是關鍵年份',st:2},
+{nm:'活字印刷',cont:'<b>北宋</b>畢昇（約970–1051），約1040年代發明<b>膠泥活字印刷術</b>。沈括《夢溪筆談》詳細記載其方法。元代王禎改進為木活字並發明轉輪排字架。比歐洲古騰堡（1450s）早約<b>400年</b>。',note:'畢昇＋沈括記載＋早400年',st:3},
+{nm:'火藥',cont:'<b>唐代</b>煉丹家在煉丹過程中偶然發現硝石、硫磺、木炭混合後可以燃燒爆炸。<b>唐末</b>開始用於軍事（火箭、火炮）。<b>宋代</b>廣泛軍事應用（突火槍、震天雷等）。13世紀經阿拉伯傳入歐洲。',note:'煉丹→軍事的轉化過程',st:2},
+{nm:'指南針',cont:'<b>戰國</b>：天然磁石製成<b>司南</b>（最早指南儀器，勺形置於光滑銅盤上）。<br><b>北宋</b>：沈括《夢溪筆談》記載用磁針指南的方法。磁針指南針開始應用於<b>航海</b>。<br>12–13世紀傳入阿拉伯和歐洲，推動<b>大航海時代</b>。',note:'司南（戰國）→磁針（北宋）→航海→傳歐洲',st:3},
+{nm:'《夢溪筆談》',cont:'<b>北宋</b>沈括（1031–1095）著。26卷609條。涉及天文、數學、物理、化學、生物、地質、醫學等多個領域。首次記載畢昇活字印刷、磁針指南等。英國李約瑟稱為<b>「中國科學史上的里程碑」</b>。',note:'百科全書式著作。記載了多項重大發明',st:3},
+{nm:'《天工開物》',cont:'<b>明代</b>宋應星（1587–約1666）著。記錄農業和手工業<b>30類生產技術300餘項</b>。涵蓋製鹽、冶鐵、紡織、陶瓷、造紙、兵器等。被譽為<b>「17世紀的工藝百科全書」</b>。',note:'三大科學巨著之一',st:2},
+{nm:'秦軍兵器標準化',cont:'<b>秦代</b>兵器實行標準化生產：弩機部件可互換（零件通用），箭頭含鉛毒增加殺傷力。體現秦代先進的軍工管理和質量控制體系。',note:'出土兵馬俑和兵器證實',st:1},
+{nm:'馬鈞（三國魏）',cont:'被譽為「天下之名巧」。改良織綾機（效率提高4–5倍）。發明<b>指南車</b>（機械定向裝置，非磁性）和<b>翻車</b>（龍骨水車，灌溉工具）。',note:'指南車≠指南針（指南車是機械齒輪裝置）',st:1},
+{nm:'諸葛亮發明',cont:'<b>蜀漢</b>丞相。發明<b>木牛流馬</b>（蜀道山地運糧工具）、改進<b>連弩</b>（一弩十矢俱發，即諸葛連弩）。',note:'軍事後勤技術創新',st:1},
+{nm:'唐三彩',cont:'<b>唐代</b>低溫釉陶器。以黃、綠、白（或褐）三色為主。主要用於<b>隨葬</b>，非日常器皿。代表唐代陶瓷工藝水平。',note:'注意：唐三彩是「陶器」不是「瓷器」',st:1},
+{nm:'《營造法式》',cont:'<b>北宋</b>李誡編修（1100年成書）。詳細規定建築標準與工藝。是中國古代最重要的<b>建築技術著作</b>。',note:'考試指南「建築」考點的技術延伸',st:1},
+{nm:'《唐律疏議》',cont:'<b>唐高宗</b>時期長孫無忌等主持編纂。中國現存<b>最早最完整的封建法典</b>。對東亞諸國（日本《大寶律令》、朝鮮、越南）法律影響深遠。',note:'中華法系的代表作',st:2},
+],
+};
+
+
+var curCat='astro';
+function sw(id){curCat=id;rT();rC();}
+function rT(){var h='';for(var i=0;i<TABS.length;i++){var c=TABS[i];h+='<button class="tab'+(curCat===c.id?' on':'')+'" style="'+(curCat===c.id?'background:'+c.color:'')+'" onclick="sw(\''+c.id+'\')">'+c.n+'</button>';}document.getElementById('tabs').innerHTML=h;}
+function rC(){var cat;for(var i=0;i<TABS.length;i++){if(TABS[i].id===curCat){cat=TABS[i];break;}}var items=DATA[curCat]||[];var h='<div class="cards">';for(var j=0;j<items.length;j++){var it=items[j];var stars='\u2605'.repeat(it.st);h+='<div class="card" style="background:'+cat.bg+';color:'+cat.tx+'" onclick="oM(\''+curCat+'\','+j+')">';h+='<div class="nm"><span class="star">'+stars+'</span> '+it.nm+'</div>';h+='<div class="ct">'+it.cont+'</div>';if(it.note)h+='<div class="nt">'+it.note+'</div>';h+='</div>';}h+='</div>';document.getElementById('content').innerHTML=h;}
+function oM(catId,idx){var cat;for(var i=0;i<TABS.length;i++){if(TABS[i].id===catId){cat=TABS[i];break;}}var it=DATA[catId][idx];var freq=['','偶考','常考','必考高頻'][it.st];var h='<button class="cb" onclick="cM()">\u00d7</button>';h+='<h3>'+it.nm+'</h3>';h+='<span class="mt" style="background:'+cat.bg+';color:'+cat.tx+'">'+cat.n+'</span>';h+='<span class="mt" style="background:#FAEEDA;color:#633806"><span class="star">'+'\u2605'.repeat(it.st)+'</span> '+freq+'</span>';h+='<div class="row"><div class="label">\u5167\u5bb9</div><div class="val">'+it.cont+'</div></div>';if(it.note)h+='<div class="row"><div class="label">\u8003\u8a66\u5099\u8a3b</div><div class="val" style="color:#555">'+it.note+'</div></div>';document.getElementById('mc').innerHTML=h;document.getElementById('ov').className='ov show';}
+function cM(){document.getElementById('ov').className='ov';}
+rT();rC();
+
+</script>
+</body>
+</html>

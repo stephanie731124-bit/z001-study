@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Z001 中國歷代政權時間線</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,"PingFang TC","Microsoft JhengHei",sans-serif;color:#1a1a1a;background:#f7f6f3;line-height:1.7}
+.c{max-width:560px;margin:0 auto;padding:14px 16px}
+h1{font-size:26px;font-weight:700}
+.sub{font-size:19px;color:#999;margin-bottom:16px}
+.legend{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px;font-size:15px;color:#555}
+.lg{display:flex;align-items:center;gap:5px}
+.lg .sw{width:14px;height:14px;border-radius:3px;display:inline-block;flex-shrink:0}
+.tl-wrap{background:#fff;border:1px solid #e5e5e5;border-radius:12px;padding:12px 8px}
+svg{display:block;width:100%;height:auto}
+.notes{margin-top:20px;padding:16px 18px;border-radius:12px;background:#fff;border:1px solid #e5e5e5;font-size:15px;line-height:1.9;color:#555}
+.notes b{color:#1a1a1a}
+.notes h3{font-size:17px;font-weight:700;margin-bottom:8px;color:#1a1a1a}
+</style>
+</head>
+<body>
+<div class="c">
+<h1>中國歷代政權時間線</h1>
+<div class="sub">約前2070年至今 · 縱軸為年代（上→下） · 橫軸顯示並存政權</div>
+
+<div class="legend">
+<div class="lg"><span class="sw" style="background:#F0997B"></span>先秦</div>
+<div class="lg"><span class="sw" style="background:#FAC775"></span>秦漢</div>
+<div class="lg"><span class="sw" style="background:#5DCAA5"></span>魏晉南北朝</div>
+<div class="lg"><span class="sw" style="background:#85B7EB"></span>隋唐五代</div>
+<div class="lg"><span class="sw" style="background:#AFA9EC"></span>宋元</div>
+<div class="lg"><span class="sw" style="background:#ED93B1"></span>明清</div>
+<div class="lg"><span class="sw" style="background:#B4B2A9"></span>近現代</div>
+</div>
+
+<div class="tl-wrap">
+<svg id="tl" viewBox="0 0 400 1900" xmlns="http://www.w3.org/2000/svg"></svg>
+</div>
+
+<div class="notes">
+<h3>閱讀說明</h3>
+<b>縱軸</b>：年代由上而下流逝，每格 500 年<br>
+<b>橫軸三區</b>：北方政權（左）／中原主流政權（中）／南方政權（右）<br>
+<b>建立年份</b>：標註於各重要朝代左側<br>
+<b>主要轉折</b>：前221 秦統一 → 220 漢末三國 → 581 隋再統一 → 960 北宋 → 1368 明 → 1912 民國 → 1949 新中國
+</div>
+</div>
+
+<script>
+(function(){
+var D=[
+['夏',-2070,-1600,'main','#F0997B','#4A1B0C'],
+['商',-1600,-1046,'main','#F0997B','#4A1B0C'],
+['西周',-1046,-771,'main','#F0997B','#4A1B0C'],
+['春秋',-770,-476,'main','#F0997B','#4A1B0C'],
+['戰國',-475,-221,'main','#F0997B','#4A1B0C'],
+['秦',-221,-206,'main','#FAC775','#412402'],
+['西漢',-206,8,'main','#FAC775','#412402'],
+['新',9,23,'main','#FAC775','#412402'],
+['東漢',25,220,'main','#FAC775','#412402'],
+['曹魏',220,265,'main','#5DCAA5','#04342C'],
+['蜀漢',221,263,'W1','#5DCAA5','#04342C'],
+['東吳',222,280,'E1','#5DCAA5','#04342C'],
+['西晉',265,316,'main','#5DCAA5','#04342C'],
+['十六國',304,439,'W2','#5DCAA5','#04342C'],
+['東晉',317,420,'E1','#5DCAA5','#04342C'],
+['北朝',386,581,'W1','#5DCAA5','#04342C'],
+['南朝',420,589,'E1','#5DCAA5','#04342C'],
+['隋',581,618,'main','#85B7EB','#042C53'],
+['唐',618,907,'main','#85B7EB','#042C53'],
+['五代',907,960,'main','#85B7EB','#042C53'],
+['十國',902,979,'E1','#85B7EB','#042C53'],
+['遼',916,1125,'W1','#AFA9EC','#26215C'],
+['北宋',960,1127,'main','#AFA9EC','#26215C'],
+['西夏',1038,1227,'W2','#AFA9EC','#26215C'],
+['金',1115,1234,'W1','#AFA9EC','#26215C'],
+['南宋',1127,1279,'E1','#AFA9EC','#26215C'],
+['元',1271,1368,'main','#AFA9EC','#26215C'],
+['明',1368,1644,'main','#ED93B1','#4B1528'],
+['清',1636,1912,'main','#ED93B1','#4B1528'],
+['中華民國',1912,1949,'main','#B4B2A9','#2C2C2A'],
+['中華人民共和國',1949,2026,'main','#B4B2A9','#2C2C2A']
+];
+
+var yMin=-2100, yMax=2050;
+var yT=30, yB=1860;
+var sc=(yB-yT)/(yMax-yMin);
+function yf(y){return yT+(y-yMin)*sc;}
+
+var X={W2:{cx:30,w:50}, W1:{cx:90,w:50}, main:{cx:215,w:90}, E1:{cx:310,w:70}};
+
+var yearLabels={
+'夏':'約前2070','商':'約前1600','西周':'前1046','秦':'前221','西漢':'前206',
+'東漢':'25','隋':'581','唐':'618','北宋':'960','元':'1271','明':'1368',
+'清':'1636','中華民國':'1912','中華人民共和國':'1949'
+};
+
+// Custom label config for narrow main bars
+// dir: 'L' = leftward leadline, 'R' = rightward, 'IN' = inside vertical stack
+var narrowMain={
+'秦':{dir:'R',text:'秦'},
+'新':{dir:'R',text:'新'},
+'西晉':{dir:'R',text:'西晉'},
+'五代':{dir:'L',text:'五代'},
+'中華民國':{dir:'R',text:'民國'},
+'中華人民共和國':{dir:'IN',text:'共和國'}
+};
+
+var innerAbbrev={'曹魏':'魏','蜀漢':'蜀','東吳':'吳'};
+
+var s='';
+
+s+='<text x="30" y="14" font-size="11" fill="#aaa" text-anchor="middle">北方</text>';
+s+='<text x="90" y="14" font-size="11" fill="#aaa" text-anchor="middle">北方</text>';
+s+='<text x="215" y="14" font-size="13" fill="#666" text-anchor="middle" font-weight="600">中原</text>';
+s+='<text x="310" y="14" font-size="11" fill="#aaa" text-anchor="middle">南方</text>';
+
+for (var y=-2000; y<=2000; y+=500){
+  var yp=yf(y);
+  s+='<line x1="5" y1="'+yp+'" x2="395" y2="'+yp+'" stroke="#eee" stroke-width="1" stroke-dasharray="2,3"/>';
+  var lb = y<0 ? ('前'+Math.abs(y)) : (y===0 ? '' : y);
+  if(lb) s+='<text x="395" y="'+(yp-2)+'" font-size="11" fill="#bbb" text-anchor="end">'+lb+'</text>';
+}
+
+var x1y=yf(1);
+s+='<line x1="5" y1="'+x1y+'" x2="395" y2="'+x1y+'" stroke="#ccc" stroke-width="1"/>';
+s+='<text x="395" y="'+(x1y-2)+'" font-size="11" fill="#888" text-anchor="end">公元元年</text>';
+
+for (var i=0; i<D.length; i++){
+  var d=D[i];
+  var n=d[0], sy=d[1], ey=d[2], t=d[3], c=d[4], tc=d[5];
+  var ya=yf(sy);
+  var yb=yf(ey);
+  var h=yb-ya;
+  var cfg=X[t];
+  var xx=cfg.cx-cfg.w/2;
+  var cy=ya+h/2;
+  var cx=cfg.cx;
+  
+  s+='<rect x="'+xx+'" y="'+ya+'" width="'+cfg.w+'" height="'+h+'" fill="'+c+'" rx="3"/>';
+  
+  if (innerAbbrev[n]){
+    s+='<text x="'+cx+'" y="'+(cy+5)+'" font-size="14" fill="'+tc+'" text-anchor="middle" font-weight="600">'+innerAbbrev[n]+'</text>';
+  } else if (narrowMain[n]){
+    var nm=narrowMain[n];
+    if (nm.dir==='IN'){
+      // Vertical stack inside bar
+      var chars=nm.text.split('');
+      var lineH=Math.min(15, h/chars.length);
+      var startY=cy-((chars.length-1)*lineH)/2+5;
+      for (var k=0; k<chars.length; k++){
+        s+='<text x="'+cx+'" y="'+(startY+k*lineH)+'" font-size="13" fill="'+tc+'" text-anchor="middle" font-weight="600">'+chars[k]+'</text>';
+      }
+    } else if (nm.dir==='R'){
+      // Lead line going right
+      s+='<line x1="'+(xx+cfg.w)+'" y1="'+cy+'" x2="'+(xx+cfg.w+8)+'" y2="'+cy+'" stroke="'+tc+'" stroke-width="0.6"/>';
+      s+='<text x="'+(xx+cfg.w+10)+'" y="'+(cy+5)+'" font-size="13" fill="'+tc+'" text-anchor="start" font-weight="600">'+nm.text+'</text>';
+    } else {
+      // Lead line going left into year-label zone
+      s+='<line x1="'+xx+'" y1="'+cy+'" x2="'+(xx-8)+'" y2="'+cy+'" stroke="'+tc+'" stroke-width="0.6"/>';
+      s+='<text x="'+(xx-10)+'" y="'+(cy+5)+'" font-size="13" fill="'+tc+'" text-anchor="end" font-weight="600">'+nm.text+'</text>';
+    }
+  } else if (h >= 25){
+    var fs;
+    if (n.length===1) fs=15;
+    else if (n.length===2) fs=14;
+    else if (n.length===3) fs=12;
+    else fs=11;
+    
+    if (n.length>=3 && cfg.w<70){
+      var lineH=14;
+      var startY=cy-((n.length-1)*lineH)/2+5;
+      for (var k=0; k<n.length; k++){
+        s+='<text x="'+cx+'" y="'+(startY+k*lineH)+'" font-size="13" fill="'+tc+'" text-anchor="middle" font-weight="600">'+n.charAt(k)+'</text>';
+      }
+    } else {
+      s+='<text x="'+cx+'" y="'+(cy+5)+'" font-size="'+fs+'" fill="'+tc+'" text-anchor="middle" font-weight="600">'+n+'</text>';
+    }
+  } else {
+    if (t.charAt(0)==='W'){
+      s+='<text x="'+(xx-3)+'" y="'+(cy+5)+'" font-size="12" fill="'+tc+'" text-anchor="end" font-weight="600">'+n+'</text>';
+    } else {
+      s+='<text x="'+(xx+cfg.w+3)+'" y="'+(cy+5)+'" font-size="12" fill="'+tc+'" text-anchor="start" font-weight="600">'+n+'</text>';
+    }
+  }
+  
+  if (yearLabels[n] && t==='main'){
+    s+='<text x="165" y="'+(ya+11)+'" font-size="11" fill="#555" text-anchor="end" font-weight="600">'+yearLabels[n]+'</text>';
+    s+='<line x1="167" y1="'+ya+'" x2="170" y2="'+ya+'" stroke="#888" stroke-width="0.8"/>';
+  }
+}
+
+document.getElementById('tl').innerHTML=s;
+})();
+</script>
+</body>
+</html>

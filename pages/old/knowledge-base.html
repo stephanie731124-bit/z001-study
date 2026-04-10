@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Z001 中華文化知識庫</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,"PingFang TC","Microsoft JhengHei",sans-serif;color:#1a1a1a;background:#f7f6f3;line-height:1.6}
+.c{max-width:760px;margin:0 auto;padding:12px 14px}
+h1{font-size:26px;font-weight:700}
+.sub{font-size:26px;color:#999;margin-bottom:10px}
+.tabs{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:14px;position:sticky;top:0;z-index:10;background:#f7f6f3;padding:6px 0}
+.tab{font-size:26px;padding:8px 14px;border-radius:18px;border:1px solid #e5e5e5;background:#fff;cursor:pointer;color:#555;font-weight:500;white-space:nowrap;transition:.15s}
+.tab.on{color:#fff;border-color:transparent}
+.leg{font-size:19px;color:#999;margin-bottom:12px;display:flex;gap:8px;flex-wrap:wrap}
+.star{color:#BA7517}
+.new{display:inline-block;font-size:26px;padding:1px 5px;border-radius:6px;background:#E24B4A;color:#fff;font-weight:600;vertical-align:middle;margin-left:2px}
+.tl{position:relative;padding-left:20px}
+.tl::before{content:'';position:absolute;left:7px;top:0;bottom:0;width:2px;background:#e5e5e5;border-radius:1px}
+.eb{position:relative;margin-bottom:18px}
+.ed{position:absolute;left:-20px;top:6px;width:12px;height:12px;border-radius:50%;border:2px solid #fff;z-index:1}
+.el{font-size:26px;font-weight:700;margin-bottom:6px}.el .yr{font-size:19px;color:#999;font-weight:400;margin-left:4px}
+.cds{display:flex;flex-direction:column;gap:5px}
+.cd{padding:10px 12px;border-radius:8px;cursor:pointer;transition:.12s;border:1px solid transparent}
+.cd:hover{border-color:rgba(0,0,0,.1);transform:translateX(2px)}
+.cd .nm{font-weight:600;font-size:19px;display:flex;align-items:center;gap:4px;flex-wrap:wrap}
+.cd .wh{font-size:19px;font-weight:500;opacity:.6;margin-left:2px}
+.cd .br{font-size:26px;opacity:.7;margin-top:2px}
+.cd .lk{font-size:19px;margin-top:4px;padding:3px 7px;background:rgba(0,0,0,.06);border-radius:5px;display:inline-block}
+.ov{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.5);z-index:100;align-items:center;justify-content:center;padding:12px}
+.ov.show{display:flex}
+.md{background:#fff;border-radius:12px;max-width:520px;width:100%;max-height:85vh;overflow-y:auto;padding:18px 20px;box-shadow:0 20px 60px rgba(0,0,0,.2)}
+.md h3{font-size:26px;font-weight:700;margin-bottom:4px}
+.md .mt{display:inline-block;font-size:26px;padding:3px 9px;border-radius:10px;margin-bottom:6px;margin-right:4px;font-weight:500}
+.md .mb{font-size:19px;line-height:1.8;color:#555}
+.md .mb b{font-weight:600;color:#1a1a1a}
+.md .cb{float:right;border:none;background:none;font-size:26px;cursor:pointer;color:#999;line-height:1}
+.md .cn{margin-top:10px;padding:10px;border-radius:8px;background:#F5F4F0;font-size:26px;line-height:1.7;color:#555}
+.md .cn b{font-weight:600;color:#1a1a1a}
+.md .tp{margin-top:8px;padding:8px 10px;border-radius:8px;background:#EBF5FF;font-size:19px;color:#0C447C;line-height:1.6}
+.md .tp b{font-weight:600}
+</style>
+</head>
+<body>
+<div class="c">
+<h1>Z001 中華文化知識庫</h1>
+<div class="sub">2026 綜合能力（一）· 按知識板塊分類 · 縱軸朝代時間線 · 點擊展開詳情與承傳脈絡</div>
+<div class="tabs" id="tabs"></div>
+<div class="leg"><span class="star">★★★</span>必考 <span class="star">★★</span>常考 <span class="star">★</span>偶考 <span class="new">新</span>依指南補充</div>
+<div id="content"></div>
+</div>
+<div class="ov" id="ov" onclick="if(event.target===this)closeM()"><div class="md" id="mc"></div></div>
+<script>
+var TABS=[{"id": "phil", "n": "哲學思想", "color": "#534AB7", "bg": "#EEEDFE", "tx": "#3C3489"}, {"id": "hist", "n": "制度·禮俗", "color": "#BA7517", "bg": "#FAEEDA", "tx": "#633806"}, {"id": "lit", "n": "文學", "color": "#1D9E75", "bg": "#E1F5EE", "tx": "#085041"}, {"id": "art", "n": "藝術", "color": "#D4537E", "bg": "#FBEAF0", "tx": "#72243E"}, {"id": "sci", "n": "科技", "color": "#378ADD", "bg": "#E6F1FB", "tx": "#0C447C"}, {"id": "script", "n": "文字", "color": "#6B5CE7", "bg": "#F0EDFF", "tx": "#3C3489"}, {"id": "coin", "n": "錢幣", "color": "#C4841D", "bg": "#FFF5E0", "tx": "#633806"}];
+
+var DATA={
+'phil':[
+{era:'春秋',yr:'前770–前476',dot:'#D85A30',items:[{nm:'孔子與儒家',when:'前551–前479',st:3,br:'仁·禮·《論語》·有教無類',det:'孔子，儒家創始人。核心：「仁」（愛人）、「禮」（秩序）、「中庸」。主張「有教無類」「因材施教」。<br>晚年整理六經。弟子編成《論語》（語錄體）。<br><b>考試要點</b>：指南示例材料二（汪曾祺《尋根》）即談孔子思想。',conn:'承：周公禮樂 → 傳：孟子發展仁政，荀子發展禮法，董仲舒推為官方正統'},{nm:'老子與道家',when:'約前571–前471',st:3,br:'道法自然·《道德經》·無為而治',det:'老子（李耳），道家創始人，著《道德經》五千言。<br>核心：「道」為萬物本源；「無為而治」；「柔弱勝剛強」；辯證思想。',conn:'承：反思禮崩樂壞 → 傳：莊子發展精神自由哲學，魏晉玄學以老莊解儒'},]},
+{era:'戰國',yr:'前475–前221',dot:'#993C1D',items:[{nm:'孟子',when:'前372–前289',st:2,br:'性善論·民貴君輕',det:'儒家亞聖，著《孟子》。主張性善論、仁政、民貴君輕。',conn:'承：孔子仁 → 傳：朱熹列入四書'},{nm:'荀子',when:'前313–前238',st:2,br:'性惡論·《勸學》',det:'著《荀子》。性惡論、禮法並用。《勸學》：學不可以已、青出於藍。<b>指南示例第3題即考《勸學》</b>。弟子韓非、李斯。',conn:'承：孔子禮學 → 傳：弟子韓非李斯發展法家'},{nm:'莊子',when:'約前369–前286',st:2,br:'齊物·逍遙·寓言',det:'著《莊子》（《南華經》）。代表篇《逍遙遊》《齊物論》。寓言：莊周夢蝶、庖丁解牛。',conn:'承：老子道哲學 → 傳：魏晉玄學、禪宗'},{nm:'墨·法·兵家',when:'戰國',st:2,br:'兼愛非攻·法術勢·《孫子兵法》',det:'<b>墨子</b>：兼愛非攻尚賢節用。<b>韓非</b>：法術勢結合，《五蠹》《說難》。<b>孫武</b>：《孫子兵法》世界最早軍事理論。<b>名家</b>：公孫龍「白馬非馬」。',conn:''},]},
+{era:'西漢',yr:'前206–8',dot:'#BA7517',items:[{nm:'董仲舒·儒學官方化',when:'前179–前104',st:2,br:'罷黜百家獨尊儒術·天人感應',det:'向漢武帝建議「罷黜百家獨尊儒術」。提出天人感應、三綱五常。儒學成為兩千年官方正統。',conn:'承：孔孟 → 傳：漢經學 → 唐三教並立 → 宋理學復興'},]},
+{era:'魏晉',yr:'220–420',dot:'#1D9E75',items:[{nm:'魏晉玄學',when:'曹魏–東晉',st:2,br:'何晏王弼·竹林七賢',det:'以老莊解儒，何晏王弼「以無為本」。竹林七賢（嵇康阮籍等）代表名士風度。',conn:'承：老莊 → 傳：影響士族文化，為佛教中國化提供土壤'},]},
+{era:'南北朝–唐',yr:'420–907',dot:'#378ADD',items:[{nm:'佛教中國化·禪宗',when:'東漢傳入，隋唐鼎盛',st:1,br:'鳩摩羅什·玄奘·慧能《壇經》',det:'<b>鳩摩羅什</b>（東晉十六國）譯經。<b>玄奘</b>（唐）西行，《大唐西域記》。<b>慧能</b>（唐）禪宗「頓悟」，《壇經》——唯一非佛說而稱經。<br><b>道教</b>：張道陵→葛洪《抱朴子》→唐代皇室推崇。',conn:'承：印度佛教＋道家 → 傳：深刻影響宋明理學和文人藝術'},]},
+{era:'北宋–南宋',yr:'960–1279',dot:'#534AB7',items:[{nm:'程朱理學',when:'北宋二程→南宋朱熹',st:3,br:'存天理滅人欲·四書',det:'<b>北宋</b>程顥程頤提出「天理」。<b>南宋</b>朱熹集大成，「存天理，滅人欲」。編《四書章句集注》成科舉教材700年。<b>元代</b>列為官方學說（2022聯考第6題）。',conn:'承：孔孟＋吸收佛道 → 傳：王陽明心學與之對立'},]},
+{era:'南宋–明',yr:'1127–1644',dot:'#D4537E',items:[{nm:'陸王心學',when:'南宋陸九淵→明代王陽明',st:2,br:'心即理·致良知·知行合一',det:'<b>南宋</b>陸九淵「心即理」。<b>明</b>王陽明「致良知」「知行合一」。<br><b>對比</b>：理學向外格物致知，心學向內致良知。',conn:'承：陸九淵 → 傳：影響日本明治維新思想'},]},
+{era:'明末清初',yr:'17世紀',dot:'#993C1D',items:[{nm:'三大啟蒙思想家',when:'明末清初',st:2,br:'黃宗羲·顧炎武·王夫之',det:'<b>黃宗羲</b>批判君主專制《明夷待訪錄》。<b>顧炎武</b>「經世致用」《日知錄》，「天下興亡匹夫有責」。<b>王夫之</b>唯物主義。',conn:'承：明亡反思 → 傳：影響晚清維新派'},]},
+],
+'hist':[
+{era:'通識',yr:'跨朝代',dot:'#BA7517',items:[{nm:'天干地支·十二生肖',when:'遠古至今',st:3,nw:1,br:'干支紀年·六十甲子·生肖地支',det:'十天干：甲乙丙丁戊己庚辛壬癸。十二地支：子丑寅卯辰巳午未申酉戌亥。60年一週期。<br>十二生肖：子鼠丑牛寅虎卯兔辰龍巳蛇午馬未羊申猴酉雞戌狗亥豬。<br>辛亥革命=1911，戊戌變法=1898。指南示例第9題涉及五行。',conn:''},{nm:'稱謂·年齡·禮俗',when:'先秦至今',st:3,nw:1,br:'敬稱謙稱·年齡別稱·五禮',det:'<b>敬稱</b>：令尊/令堂/令郎/閣下。<b>謙稱</b>：家父/犬子/鄙人。<br><b>年齡</b>：弱冠20、而立30、不惑40、知天命50、花甲60、古稀70、耄耋80-90、期頤100。<br><b>五禮</b>：吉嘉賓軍凶。冠禮男20/笄禮女15。',conn:''},{nm:'衣食住行·圖書',when:'跨朝代',st:2,nw:1,br:'建築等級·茶經·經史子集',det:'建築：庑殿頂＞歇山頂＞懸山頂＞硬山頂。陸羽《茶經》（唐）。<br>圖書：經史子集。《永樂大典》（明）《四庫全書》（清）《說文解字》（東漢許慎）。',conn:''},]},
+{era:'西周',yr:'前1046–前771',dot:'#D85A30',items:[{nm:'分封·宗法·禮樂·井田',when:'西周',st:2,br:'四制互為表裡',det:'分封制（天子→諸侯）、宗法制（嫡長子繼承）、井田制（土地國有）、禮樂制（維護等級）。<br>四者互為表裡→春秋禮崩樂壞→秦郡縣制取代。',conn:'四制互為基礎 → 春秋瓦解 → 秦郡縣制取代'},]},
+{era:'秦',yr:'前221–前206',dot:'#993C1D',items:[{nm:'郡縣制·書同文·統一',when:'秦始皇',st:3,br:'中央集權確立',det:'郡縣制、三公九卿。統一文字（小篆）、貨幣（半兩）、度量衡、車軌。修馳道長城。焚書坑儒。',conn:'承：商鞅變法 → 傳：漢承秦制'},]},
+{era:'西漢',yr:'前206–8',dot:'#BA7517',items:[{nm:'漢武帝大一統',when:'前141–前87在位',st:3,br:'推恩令·鹽鐵·五銖·北擊匈奴',det:'<b>政治</b>：推恩令、刺史。<b>經濟</b>：鹽鐵專營、五銖錢。<b>文化</b>：罷黜百家獨尊儒術、太學。<b>軍事</b>：北擊匈奴（衛青霍去病）、張騫通西域（前138年）。<br><b>2022年聯考問答題原題</b>。',conn:'承：秦制 → 傳：奠定大一統帝國模式'},{nm:'察舉制',when:'西漢',st:2,br:'推薦孝廉秀才',det:'地方官向中央推薦人才。後期被門閥壟斷。',conn:'選官線：世卿世祿→軍功爵→<b>察舉</b>→九品中正→科舉'},]},
+{era:'曹魏',yr:'220–265',dot:'#1D9E75',items:[{nm:'九品中正制',when:'曹魏220年始',st:1,nw:1,br:'門閥壟斷',det:'陳群創立。按家世才德分九等。後期「上品無寒門」。',conn:'承：察舉制弊端 → 傳：隋唐科舉取代'},]},
+{era:'隋',yr:'581–618',dot:'#378ADD',items:[{nm:'科舉制創立',when:'隋煬帝605年',st:3,br:'設進士科',det:'隋文帝廢九品中正，隋煬帝設進士科→科舉制誕生。',conn:'承：取代九品 → 傳：唐完善（太宗/武則天/玄宗）'},]},
+{era:'唐',yr:'618–907',dot:'#378ADD',items:[{nm:'三省六部·科舉完善·租庸調',when:'唐代',st:3,br:'制度成熟',det:'三省六部（中書→門下→尚書，吏戶禮兵刑工）。科舉完善（太宗擴科/武則天殿試武舉/玄宗詩賦取士）。<br>租庸調（租穀庸代役調布帛）——<b>2023聯考30分原題</b>。安史之亂後→兩稅法（楊炎）。',conn:'租庸調→兩稅法→明一條鞭法→清攤丁入畝'},]},
+{era:'北宋',yr:'960–1127',dot:'#534AB7',items:[{nm:'祖宗家法·王安石變法',when:'北宋',st:3,br:'重文抑武·三冗·青苗募役',det:'杯酒釋兵權、重文抑武。「祖宗家法」事為之防曲為之制——<b>2023材料題原題</b>。三冗問題。<br>王安石變法1069年：青苗法、募役法、方田均稅法、保甲法。',conn:'承：唐末藩鎮教訓 → 重文抑武致軍事積弱'},]},
+{era:'元',yr:'1271–1368',dot:'#1D9E75',items:[{nm:'行省制·土司制',when:'元代',st:2,br:'省級行政起源',det:'行省制=省級行政區起源。宣政院管西藏。土司制度管西南。',conn:'→ 傳：明清沿用行省，改土歸流取代土司'},]},
+{era:'明',yr:'1368–1644',dot:'#D4537E',items:[{nm:'內閣·八股·鄭和',when:'明代',st:3,br:'廢丞相·思想控制·七下西洋',det:'廢丞相設內閣。八股取士（2022第7題）。鄭和下西洋1405–1433七次。',conn:'承：元制 → 傳：清軍機處進一步強化皇權'},]},
+{era:'清',yr:'1644–1912',dot:'#993C1D',items:[{nm:'軍機處·改土歸流',when:'康雍乾時期',st:3,br:'皇權巔峰·邊疆治理',det:'軍機處（<b>雍正</b>）君主專制頂峰。改土歸流（<b>雍正</b>）——<b>2021材料題原題</b>。駐藏大臣、伊犁將軍、台灣府。<br>清朝疆域奠定——<b>2020問答題原題</b>。',conn:''},{nm:'近代化進程',when:'1840–1912',st:3,br:'鴉片→洋務→戊戌→辛亥',det:'鴉片戰爭1840（《南京條約》割港島）→第二次鴉片（《北京條約》割九龍）→甲午1895（《馬關》割台灣允設廠）→《辛丑》→洋務運動→戊戌變法→辛亥革命1911——<b>2022問答題原題</b>。',conn:'各條約內容區分是選擇題高頻陷阱'},]},
+{era:'現代',yr:'1949–',dot:'#378ADD',items:[{nm:'新中國重大事件',when:'1949至今',st:3,br:'建國·抗美援朝·一國兩制',det:'新中國1949（2020原題）。抗美援朝1950–53（2023原題）。三大改造1953–56。改革開放1978。一國兩制（1997港/1999澳——2021、2022原題）。<br><b>2026新大綱核心</b>：中華優秀傳統文化、民族多元一體、一國兩制。',conn:''},]},
+],
+'lit':[
+{era:'西周–春秋',yr:'前1046–前476',dot:'#1D9E75',items:[{nm:'《詩經》',when:'西周至春秋',st:3,br:'305篇·風雅頌·賦比興=六義',det:'中國最早詩歌總集305篇。風（民歌）雅（朝廷）頌（祭祀）＋賦比興＝<b>六義</b>。<b>現實主義源頭</b>。名篇《關雎》《蒹葭》。',conn:'→ 與《楚辭》並稱兩大源頭'},]},
+{era:'戰國',yr:'前475–前221',dot:'#D85A30',items:[{nm:'屈原與《楚辭》',when:'約前340–前278（楚國）',st:3,br:'《離騷》·浪漫主義源頭·端午節',det:'中國第一位偉大詩人。《離騷》=最長抒情詩。<b>浪漫主義源頭</b>。端午節五月初五紀念屈原。',conn:'承：楚地巫文化 → 傳：漢賦鋪陳手法；李白浪漫精神'},{nm:'先秦散文',when:'春秋–戰國',st:2,br:'編年體·國別體·語錄體·論說體',det:'<b>史傳</b>：《左傳》編年體、《國語》國別體、《戰國策》國別體。<br><b>諸子</b>：《論語》語錄體、《孟子》《莊子》《韓非子》論說體。<br><b>考試要點</b>：文體分類是「文體流變」核心。',conn:'→ 司馬遷《史記》首創紀傳體'},]},
+{era:'漢',yr:'前206–220',dot:'#BA7517',items:[{nm:'《史記》·漢賦·樂府',when:'西漢–東漢',st:2,br:'紀傳體通史·樂府雙璧',det:'<b>《史記》</b>（西漢司馬遷）首部紀傳體通史，「史家之絕唱」。<b>《漢書》</b>（東漢班固）首部斷代史。<br>漢賦：司馬相如。漢樂府「感於哀樂」。《孔雀東南飛》（東漢）＋《木蘭辭》（南北朝）=<b>樂府雙璧</b>。',conn:'紀傳體成為二十四史標準'},]},
+{era:'魏晉南北朝',yr:'220–589',dot:'#1D9E75',items:[{nm:'建安·陶淵明·文論',when:'漢末–南朝',st:2,br:'建安風骨·田園詩祖·《文心雕龍》',det:'<b>建安</b>（漢末曹魏）三曹＋七子=建安風骨。<b>陶淵明</b>（東晉365–427）田園詩祖《桃花源記》。<br><b>劉勰</b>（南朝梁）《文心雕龍》第一部系統文論。駢文盛行。《世說新語》（南朝宋劉義慶）。',conn:'承：漢樂府 → 傳：唐古文運動反駢復散'},]},
+{era:'唐',yr:'618–907',dot:'#378ADD',items:[{nm:'唐詩·古文運動·傳奇',when:'唐代',st:3,br:'李杜白·唐宋八大家·唐傳奇',det:'<b>初唐</b>四傑（王勃《滕王閣序》）。<b>盛唐</b>李白詩仙/杜甫詩聖/王維詩佛/高適岑參邊塞。<b>中唐</b>白居易《長恨歌》《琵琶行》新樂府。<b>晚唐</b>小李杜。<br>古文運動：韓愈柳宗元=唐宋八大家之二。唐傳奇：文言短篇小說。<br><b>指南示例第2題考陸游</b>。',conn:'承：建安風骨 → 傳：宋詞新形式'},]},
+{era:'北宋',yr:'960–1127',dot:'#534AB7',items:[{nm:'蘇軾·唐宋八大家',when:'北宋',st:3,br:'豪放詞·散文六大家',det:'蘇軾豪放派《念奴嬌》《水調歌頭》。唐宋八大家中六位北宋人：歐陽修、蘇洵、蘇軾、蘇轍、王安石、曾鞏。柳永婉約派。',conn:'→ 傳：南宋辛棄疾繼續豪放'},]},
+{era:'南宋',yr:'1127–1279',dot:'#534AB7',items:[{nm:'李清照·辛棄疾·陸游',when:'南宋',st:3,br:'婉約·豪放·愛國',det:'<b>李清照</b>傑出女詞人，前清新後悲涼。<b>辛棄疾</b>豪放派。<b>陸游</b>愛國詩人。<br><b>指南示例第2題</b>「此生誰料，心在天山，身老滄州」=陸游（答案C）。',conn:''},]},
+{era:'元',yr:'1271–1368',dot:'#1D9E75',items:[{nm:'元曲',when:'元代',st:3,br:'四大家·《竇娥冤》《西廂記》',det:'四大家：關漢卿《竇娥冤》、白樸、馬致遠《天淨沙·秋思》、鄭光祖。王實甫《西廂記》。紀君祥《趙氏孤兒》。',conn:'承：宋話本 → 傳：明清戲曲'},]},
+{era:'明',yr:'1368–1644',dot:'#D4537E',items:[{nm:'三國水滸西遊·昆曲',when:'元末明初–明代',st:3,br:'長篇小說·湯顯祖《牡丹亭》',det:'羅貫中（元末明初）《三國演義》第一部長篇歷史小說。施耐庵（元末明初）《水滸傳》。吳承恩（明）《西遊記》。<br>湯顯祖（明）《牡丹亭》昆曲代表。昆曲=百戲之祖，2001年非遺。',conn:'承：宋話本元雜劇 → 傳：清《紅樓夢》巔峰'},]},
+{era:'清',yr:'1644–1912',dot:'#993C1D',items:[{nm:'《紅樓夢》·京劇',when:'清代',st:3,br:'古典小說巔峰·國粹',det:'曹雪芹《紅樓夢》古典小說最高成就。蒲松齡《聊齋志異》。吳敬梓《儒林外史》。<br>京劇：清乾隆四大徽班進京→道光年間京劇形成，國粹。',conn:''},]},
+{era:'近現代',yr:'1915–',dot:'#378ADD',items:[{nm:'新文化運動·魯迅',when:'民國–當代',st:2,br:'白話文·《狂人日記》',det:'新文化運動1915陳獨秀《新青年》，胡適倡白話文。魯迅《狂人日記》1918首篇白話小說。<br>老舍《茶館》、巴金《家》、茅盾《子夜》、沈從文《邊城》。指南示例材料二提及。',conn:''},]},
+{era:'通識',yr:'跨朝代',dot:'#BA7517',items:[{nm:'文學總集·民族史詩',when:'各朝代',st:2,nw:1,br:'《文選》《全唐詩》·三大史詩',det:'總集：《昭明文選》（南朝梁蕭統，最早詩文總集）、《樂府詩集》（宋郭茂倩）、《花間集》（五代，最早詞集）、《全唐詩》（清康熙）。<br>三大民族史詩：藏族《格薩爾王傳》（世界最長）、蒙古族《江格爾》、柯爾克孜族《瑪納斯》。',conn:''},]},
+],
+'art':[
+{era:'先秦',yr:'–前221',dot:'#D85A30',items:[{nm:'青銅·編鐘',when:'商–戰國',st:1,br:'司母戊鼎·曾侯乙編鐘',det:'商：司母戊鼎（最大青銅器832kg）。戰國：曾侯乙編鐘65件。越王勾踐劍。良渚玉器。',conn:''},]},
+{era:'秦漢',yr:'前221–220',dot:'#993C1D',items:[{nm:'兵馬俑·漢石雕',when:'秦–西漢',st:1,br:'世界第八大奇蹟',det:'秦始皇陵兵馬俑1974年發現。西漢霍去病墓《馬踏匈奴》。金縷玉衣。',conn:'→ 石雕→南北朝佛教石窟'},]},
+{era:'魏晉南北朝',yr:'220–589',dot:'#1D9E75',items:[{nm:'書聖·畫祖·六法·石窟',when:'東晉–北魏',st:3,br:'王羲之·顧愷之·謝赫·三大石窟',det:'<b>鍾繇</b>（曹魏）楷書之祖。<b>王羲之</b>（東晉）《蘭亭集序》天下第一行書。<b>顧愷之</b>（東晉）以形寫神《洛神賦圖》。<br><b>謝赫</b>（南齊）繪畫六法（氣韻生動等）。<br>石窟：敦煌莫高窟（前秦366年）、雲岡（北魏大同）、龍門（北魏–唐洛陽）。',conn:'→ 唐代書畫在此基礎達鼎盛'},]},
+{era:'唐',yr:'618–907',dot:'#378ADD',items:[{nm:'楷書四大家（三唐）·畫聖·建築',when:'唐代',st:2,br:'歐顏柳·吳道子·趙州橋·梨園',det:'歐陽詢/顏真卿（《祭侄文稿》天下第二行書）/柳公權。張旭懷素狂草。<br>吳道子畫聖。王維水墨山水。趙州橋（隋李春）。唐玄宗設梨園→戲曲界別稱。',conn:'天下三大行書：蘭亭（晉）→祭侄（唐）→寒食（宋）'},]},
+{era:'北宋–南宋',yr:'960–1279',dot:'#534AB7',items:[{nm:'宋畫·宋瓷·宋四家',when:'北宋–南宋',st:2,br:'《清明上河圖》·五大名窯·蘇黃米蔡',det:'張擇端（北宋）《清明上河圖》。五大名窯汝官哥鈞定。宋四家蘇黃米蔡。蘇軾《寒食帖》天下第三行書。<br>趙孟頫（元）楷書四大家之四（唯一非唐人）。景德鎮元代起成製瓷中心。',conn:''},]},
+{era:'明清近現代',yr:'1368–',dot:'#D4537E',items:[{nm:'建築·戲曲·繪畫',when:'明–近現代',st:1,br:'故宮·京劇·齊白石徐悲鴻',det:'故宮（明永樂）世界最大宮殿群。天壇。蘇州園林。<br>昆曲百戲之祖2001非遺→京劇清道光國粹。文彭（明）篆刻之祖。<br>齊白石蝦/徐悲鴻馬/鄭板橋竹。',conn:''},]},
+{era:'通識',yr:'跨朝代',dot:'#BA7517',items:[{nm:'傳統節日·民俗',when:'先秦至今',st:3,nw:1,br:'春節元宵清明端午七夕中秋重陽',det:'春節正月初一。元宵正月十五。清明掃墓。端午五月初五紀念屈原。七夕七月初七。中秋八月十五。重陽九月初九。<br>四大傳說：牛郎織女、孟姜女、梁祝、白蛇傳。',conn:''},{nm:'音樂·樂器',when:'先秦至今',st:2,nw:1,br:'宮商角徵羽·八音·古琴',det:'五聲：宮商角徵羽。八音：金石絲竹匏土革木。古琴：高山流水知音典故，2003非遺。梨園（唐玄宗）→戲曲界別稱。',conn:''},]},
+],
+'sci':[
+{era:'先秦',yr:'–前221',dot:'#D85A30',items:[{nm:'甲骨文·司南·天文·節氣',when:'商–戰國',st:2,br:'漢字源頭·指南器·《甘石星經》',det:'甲骨文（商）殷墟。字體演變：甲骨文→金文→篆→隸→楷→行→草。<br>司南（戰國）最早指南器。《甘石星經》（戰國）最早天文著作。二十四節氣2016非遺。',conn:'司南→北宋磁針→航海→傳入歐洲'},]},
+{era:'秦漢',yr:'前221–220',dot:'#993C1D',items:[{nm:'造紙·地動儀·醫學',when:'東漢',st:3,br:'四大發明之一·張衡·張仲景華佗',det:'蔡倫（東漢105年）改進造紙。張衡（東漢）候風地動儀。<br>張仲景（東漢）《傷寒雜病論》醫聖。華佗（東漢）麻沸散＋五禽戲。《黃帝內經》中醫奠基。《九章算術》。',conn:'四大發明：造紙東漢/印刷隋唐宋/火藥唐/指南針戰國宋'},]},
+{era:'南北朝',yr:'420–589',dot:'#1D9E75',items:[{nm:'祖沖之·農書·地圖',when:'南朝–北魏–西晉',st:2,br:'圓周率·《齊民要術》·製圖六體',det:'祖沖之（南朝）π密率355/113。賈思勰（北魏）《齊民要術》最早完整農書。裴秀（西晉）製圖六體。',conn:''},]},
+{era:'隋唐',yr:'581–907',dot:'#378ADD',items:[{nm:'火藥·雕版印刷·醫學·天文',when:'唐代',st:3,br:'四大發明之二·《千金方》·僧一行',det:'火藥（唐）煉丹家發現，唐末軍事。雕版印刷：《金剛經》868年。<br>孫思邈（唐）《千金方》藥王。《唐本草》最早國家藥典。僧一行（唐）《大衍曆》，首測子午線。',conn:''},]},
+{era:'北宋',yr:'960–1127',dot:'#534AB7',items:[{nm:'活字印刷·指南針·《夢溪筆談》',when:'北宋',st:3,br:'四大發明完備·沈括',det:'畢昇（北宋約1040s）膠泥活字印刷。指南針北宋航海應用。<br>沈括（北宋）《夢溪筆談》中國科學史里程碑。',conn:'四大發明完整：造紙=東漢，印刷=隋唐雕版/北宋活字，火藥=唐，指南針=戰國司南/北宋磁針'},]},
+{era:'元',yr:'1271–1368',dot:'#1D9E75',items:[{nm:'郭守敬·王禎',when:'元代',st:2,br:'《授時曆》·轉輪排字架',det:'郭守敬（元）《授時曆》精度接近公曆。王禎（元）轉輪排字架改進活字印刷。',conn:''},]},
+{era:'明',yr:'1368–1644',dot:'#D4537E',items:[{nm:'三大科學巨著·徐霞客',when:'明代',st:2,br:'本草綱目·天工開物·農政全書',det:'李時珍（明）《本草綱目》1892種藥。宋應星（明）《天工開物》工藝百科。徐光啟（明）《農政全書》＋合譯《幾何原本》。<br>徐霞客（明）《徐霞客遊記》地理考察。',conn:''},]},
+{era:'通識',yr:'跨朝代',dot:'#BA7517',items:[{nm:'地理·水利工程',when:'戰國–隋',st:2,nw:1,br:'都江堰·靈渠·大運河',det:'《山海經》（先秦）《水經注》（北魏酈道元）《徐霞客遊記》（明）。裴秀製圖六體（西晉）。<br>都江堰（戰國秦李冰）、靈渠（秦）、鄭國渠（戰國秦）、大運河（隋煬帝）2014世界遺產。坎兒井（新疆）。',conn:''},]},
+],
+'script':[
+{era:'商',yr:'前1600–前1046',dot:'#D85A30',items:[{nm:'甲骨文',when:'商代',st:3,br:'龜甲獸骨·殷墟·約4500字',det:'刻在龜甲獸骨上，1899年王懿榮發現。約4500字，已識約1700。',conn:'→ 金文→大篆→小篆'},]},
+{era:'西周',yr:'前1046–前771',dot:'#D85A30',items:[{nm:'金文',when:'西周',st:2,br:'青銅器銘文·毛公鼎497字',det:'鑄刻在青銅器上。毛公鼎銘文497字（最長）。',conn:'承：甲骨文 → 傳：大篆'},]},
+{era:'戰國',yr:'前475–前221',dot:'#993C1D',items:[{nm:'大篆·六國異文',when:'戰國',st:2,br:'石鼓文·各國文字紛雜',det:'大篆（籀文），《石鼓文》現存最早石刻。各國文字異形→秦統一背景。書寫材料：竹簡帛書。',conn:'→ 秦統一為小篆'},]},
+{era:'秦',yr:'前221–前206',dot:'#993C1D',items:[{nm:'小篆',when:'秦始皇',st:3,br:'李斯書同文·筆畫圓轉均勻',det:'命李斯統一為小篆。「書同文」與「車同軌」「統一度量衡」並列。秦隸（古隸）同時萌芽。',conn:'承：大篆 → 傳：漢隸（隸變=古今文字分界）'},]},
+{era:'漢',yr:'前206–220',dot:'#BA7517',items:[{nm:'隸書（隸變）',when:'漢代',st:3,br:'漢字最大形體變革·蠶頭燕尾',det:'隸變：圓轉→方折，縱長→橫扁。「蠶頭燕尾」。名碑《曹全碑》《張遷碑》。章草萌芽。蔡倫造紙→紙取代竹簡。',conn:'隸變=古今文字分界線 → 傳：楷書'},]},
+{era:'魏晉',yr:'220–420',dot:'#1D9E75',items:[{nm:'楷書·行書·今草',when:'曹魏–東晉',st:3,br:'鍾繇楷祖·王羲之書聖',det:'鍾繇（曹魏）楷書之祖。王羲之（東晉）《蘭亭集序》天下第一行書。王獻之今草。北碑南帖。',conn:'承：隸書 → 三體全面成熟 → 傳：唐楷鼎盛'},]},
+{era:'唐',yr:'618–907',dot:'#378ADD',items:[{nm:'楷書鼎盛·狂草',when:'唐代',st:3,br:'歐顏柳·張旭懷素',det:'楷書四大家三唐人（歐顏柳）。科舉標準書體。顏真卿《祭侄文稿》天下第二行書。張旭懷素「顛張醉素」狂草。',conn:'→ 宋體字因雕版印刷而生'},]},
+{era:'宋',yr:'960–1279',dot:'#534AB7',items:[{nm:'宋體字·瘦金體',when:'北宋–南宋',st:2,br:'雕版催生印刷字體·宋四家',det:'宋體字因雕版印刷而生。宋四家蘇黃米蔡。蘇軾《寒食帖》天下第三行書。宋徽宗瘦金體。',conn:'天下三大行書：蘭亭（晉）→祭侄（唐）→寒食（宋）'},]},
+{era:'元',yr:'1271–1368',dot:'#1D9E75',items:[{nm:'趙孟頫·八思巴文',when:'元代',st:1,br:'楷書四大家之四（唯一非唐人）',det:'趙孟頫楷書四大家中唯一非唐人。八思巴文為官方文字但未取代漢字。',conn:''},]},
+{era:'明清',yr:'1368–1912',dot:'#D4537E',items:[{nm:'館閣體·《康熙字典》',when:'明清',st:2,br:'科舉規範·收字最多字典',det:'館閣體科舉標準楷書。八股文（2022考點）。《康熙字典》（清）47035字。清末碑學興起。<br>完整線：甲骨文→金文→大篆→小篆→隸書→楷書→行書→草書（＋宋體＋館閣體）。',conn:''},]},
+],
+'coin':[
+{era:'商',yr:'前1600–前1046',dot:'#C4841D',items:[{nm:'天然貝幣·銅貝',when:'商代',st:2,br:'最早貨幣·財字從貝',det:'天然海貝為最早貨幣。商晚期銅仿貝=最早金屬貨幣。漢字「財貨貴賤」從「貝」。',conn:'→ 春秋戰國發展為多形制金屬幣'},]},
+{era:'戰國',yr:'前475–前221',dot:'#993C1D',items:[{nm:'四大貨幣體系',when:'戰國',st:2,br:'布幣·刀幣·環錢·蟻鼻錢',det:'布幣（中原）、刀幣（齊燕）、環錢（秦，後世原型）、蟻鼻錢（楚）。另有郢爰（楚金版）。',conn:'反映割據 → 秦統一為半兩'},]},
+{era:'秦',yr:'前221–前206',dot:'#993C1D',items:[{nm:'秦半兩',when:'秦始皇',st:3,br:'圓形方孔·天圓地方·統一貨幣',det:'廢六國舊幣，統一圓形方孔「半兩」銅錢（12銖）。確立兩千年錢幣基本形制。體現天圓地方。紀重錢幣時代。<br><b>指南示例第1題考錢幣辨識</b>。',conn:'承：環錢 → 傳：漢五銖沿用700年'},]},
+{era:'西漢',yr:'前206–8',dot:'#BA7517',items:[{nm:'五銖錢',when:'漢武帝前118年始鑄',st:3,br:'沿用700年·中央壟斷鑄幣權',det:'漢武帝鑄五銖錢，收回郡國鑄幣權→中央壟斷。流通至隋約700年。<br><b>指南示例第1題答案=B漢（五銖錢）</b>。',conn:'承：秦半兩 → 700年 → 唐廢五銖改開元'},]},
+{era:'唐',yr:'618–907',dot:'#378ADD',items:[{nm:'開元通寶',when:'唐高祖621年',st:3,br:'幣制革命·通寶體系·延續1300年',det:'廢五銖，鑄「開元通寶」。三大革命：①結束紀重→通寶體系；②新重量標準1文=1錢；③延續1300年至民國。',conn:'承：取代五銖 → 傳：宋元明清通寶全沿用'},]},
+{era:'北宋',yr:'960–1127',dot:'#534AB7',items:[{nm:'交子',when:'北宋約1024年',st:3,br:'世界最早紙幣·四川·鐵錢太重',det:'北宋四川發行，世界最早紙幣。原因：鐵錢笨重（一匹絹需130斤鐵錢）。年號錢盛行，瘦金體「大觀通寶」最精美。<br><b>注意：北宋非南宋</b>。',conn:'承：開元通寶體系 → 傳：元代紙幣為主幣'},]},
+{era:'元',yr:'1271–1368',dot:'#1D9E75',items:[{nm:'中統鈔（紙鈔為主幣）',when:'元世祖1260年',st:2,br:'世界首個完全紙幣制度',det:'元朝=<b>第一個以紙幣為主幣</b>的朝代。馬可波羅驚嘆。元末濫發→通膨→滅亡。<br>區分：北宋發明紙幣，元朝首次以紙幣為主幣。',conn:'承：宋交子 → 傳：明繼承但失敗→白銀'},]},
+{era:'明',yr:'1368–1644',dot:'#D4537E',items:[{nm:'白銀崛起',when:'明代',st:2,br:'寶鈔崩潰·一條鞭法·白銀成主幣',det:'大明通行寶鈔濫發崩潰。白銀取代紙鈔。張居正一條鞭法以銀繳稅。白銀從美洲日本流入。',conn:'承：元紙鈔失敗 → 傳：清銀銅雙本位'},]},
+{era:'清',yr:'1644–1912',dot:'#993C1D',items:[{nm:'銀銅雙本位→機制銀元',when:'清代',st:2,br:'年號通寶·光緒元寶·「元」確立',det:'銀（大額）＋銅錢（小額，康熙/乾隆通寶等）。光緒年間機制銀元（龍洋），結束手工鑄幣。「元」取代「兩」沿用至今。<br>完整線：貝幣→刀布環楚→秦半兩→漢五銖700年→唐開元通寶→宋交子→元紙鈔→明白銀→清銀元→現代人民幣。',conn:''},]},
+],
+};
+
+
+var curTab='phil';
+function switchTab(id){curTab=id;renderTabs();renderContent();}
+function renderTabs(){
+var h='';
+for(var i=0;i<TABS.length;i++){var t=TABS[i];var cls=curTab===t.id?'tab on':'tab';var sty=curTab===t.id?'background:'+t.color:'';
+h+='<button class="'+cls+'" style="'+sty+'" onclick="switchTab(\''+t.id+'\')">'+t.n+'</button>';}
+document.getElementById('tabs').innerHTML=h;}
+function renderContent(){
+var tab;for(var i=0;i<TABS.length;i++){if(TABS[i].id===curTab){tab=TABS[i];break;}}
+var eras=DATA[curTab]||[];var h='<div class="tl">';
+for(var ei=0;ei<eras.length;ei++){var era=eras[ei];
+h+='<div class="eb"><div class="ed" style="background:'+era.dot+'"></div>';
+h+='<div class="el">'+era.era+'<span class="yr">'+era.yr+'</span></div><div class="cds">';
+for(var ci=0;ci<era.items.length;ci++){var it=era.items[ci];var nw=it.nw?'<span class="new">新</span>':'';
+var stars='\u2605'.repeat(it.st);
+h+='<div class="cd" style="background:'+tab.bg+';color:'+tab.tx+'" onclick="openM(\''+curTab+'\','+ei+','+ci+')">';
+h+='<div class="nm"><span class="star">'+stars+'</span> '+it.nm+nw+'<span class="wh">'+it.when+'</span></div>';
+h+='<div class="br">'+it.br+'</div>';
+if(it.conn)h+='<div class="lk"><b>↕</b> 有承傳關係</div>';
+h+='</div>';}h+='</div></div>';}h+='</div>';
+document.getElementById('content').innerHTML=h;}
+function openM(tabId,ei,ci){
+var tab;for(var i=0;i<TABS.length;i++){if(TABS[i].id===tabId){tab=TABS[i];break;}}
+var era=DATA[tabId][ei];var it=era.items[ci];
+var freq=['','偶考','常考，需熟練掌握','必考高頻'][it.st];
+var nw=it.nw?'<span class="new">新增</span>':'';
+var h='<button class="cb" onclick="closeM()">\u00d7</button>';
+h+='<h3>'+it.nm+nw+'</h3>';
+h+='<span class="mt" style="background:'+tab.bg+';color:'+tab.tx+'">'+tab.n+'</span>';
+h+='<span class="mt" style="background:#f0f0f0;color:#333">'+it.when+'</span>';
+h+='<span class="mt" style="background:#FAEEDA;color:#633806"><span class="star">'+'\u2605'.repeat(it.st)+'</span> '+freq+'</span>';
+h+='<div class="mb">'+it.det+'</div>';
+if(it.conn)h+='<div class="cn"><b>↕ 承傳脈絡</b><br>'+it.conn+'</div>';
+h+='<div class="tp"><b>備考提示：</b>'+freq+'。'+(it.nw?'此為依2026考試指南新補充。':'')+'</div>';
+document.getElementById('mc').innerHTML=h;document.getElementById('ov').className='ov show';}
+function closeM(){document.getElementById('ov').className='ov';}
+renderTabs();renderContent();
+
+</script>
+</body>
+</html>

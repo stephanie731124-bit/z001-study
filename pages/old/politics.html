@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Z001 古代政治制度（按朝代）</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,"PingFang TC","Microsoft JhengHei",sans-serif;color:#1a1a1a;background:#f7f6f3;line-height:1.7}
+.c{max-width:760px;margin:0 auto;padding:14px 16px}
+h1{font-size:26px;font-weight:700}
+.sub{font-size:19px;color:#999;margin-bottom:12px}
+.legend{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:16px;font-size:19px;color:#555}
+.lg{display:flex;align-items:center;gap:5px}
+.lg span{width:12px;height:12px;border-radius:3px;display:inline-block}
+.tl{position:relative;padding-left:24px}
+.tl::before{content:'';position:absolute;left:9px;top:0;bottom:0;width:2px;background:#ddd;border-radius:1px}
+.era{position:relative;margin-bottom:8px}
+.dot{position:absolute;left:-24px;top:10px;width:16px;height:16px;border-radius:50%;border:2px solid #f7f6f3;z-index:1}
+.era-hdr{display:flex;align-items:baseline;gap:10px;padding:10px 14px;background:#fff;border:1px solid #e5e5e5;border-radius:12px;cursor:pointer;margin-bottom:0}
+.era-hdr:hover{border-color:#bbb}
+.en{font-size:26px;font-weight:700}
+.ey{font-size:19px;color:#999}
+.arrow{font-size:19px;color:#999;margin-left:auto}
+.era-body{background:#fff;border:1px solid #e5e5e5;border-top:none;border-radius:0 0 12px 12px;padding:14px}
+.cols{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+@media(min-width:700px){.cols{grid-template-columns:repeat(4,1fr)}}
+.col{background:#fafaf7;border:1px solid #eee;border-radius:10px;padding:12px 14px;border-top:4px solid transparent}
+.col-label{font-size:15px;font-weight:600;margin-bottom:4px}
+.col-title{font-size:19px;font-weight:700;margin-bottom:6px}
+.col-body{font-size:19px;line-height:1.8;color:#444}
+.col-body b{font-weight:600;color:#1a1a1a}
+.change{margin-top:12px;font-size:19px;padding:12px 14px;border-radius:10px;background:#FFF8E6;color:#633806;line-height:1.8;border:1px solid #F0E0B0}
+.change b{font-weight:600;color:#412402}
+.arr{font-size:19px;color:#ccc;text-align:center;margin:4px 0;padding-left:0}
+.trend{margin-top:20px;padding:16px 18px;border-radius:12px;background:#fff;border:1px solid #e5e5e5;font-size:19px;line-height:2;color:#555}
+.trend b{font-weight:600;color:#1a1a1a}
+.trend .th{font-size:26px;font-weight:700;margin-bottom:8px;color:#1a1a1a}
+</style>
+</head>
+<body>
+<div class="c">
+<h1>中國古代政治制度 — 按朝代結構化</h1>
+<div class="sub">每個朝代的四大制度並列對照，含具體職責與變革原因 · 點擊朝代可收合展開</div>
+<div class="legend">
+<div class="lg"><span style="background:#993C1D"></span>中央官制</div>
+<div class="lg"><span style="background:#534AB7"></span>地方行政</div>
+<div class="lg"><span style="background:#1D9E75"></span>選官制度</div>
+<div class="lg"><span style="background:#BA7517"></span>賦稅制度</div>
+</div>
+<div class="tl" id="tl"></div>
+<div class="trend">
+<div class="th">四條核心演變趨勢</div>
+<b>中央官制</b>：三公九卿→內外朝→三省六部→二府三司→中書省→廢丞相設內閣→軍機處<br>
+趨勢：<b>相權不斷削弱，皇權不斷加強→君主專制頂峰</b><br><br>
+<b>地方行政</b>：分封制→郡縣制→郡國並行→州郡縣→道州縣→路州縣→行省制→省府縣<br>
+趨勢：<b>中央對地方控制不斷加強；地方官從世襲→任命→可隨時撤換</b><br><br>
+<b>選官制度</b>：世卿世祿→軍功爵→察舉制→九品中正→科舉制（隋至清1905年廢除）<br>
+趨勢：<b>選才範圍↑（貴族→推薦→考試）；標準從血緣→品德→才學</b><br><br>
+<b>賦稅制度</b>：井田制→編戶齊民→均田制→租庸調→兩稅法→一條鞭法→攤丁入畝<br>
+趨勢：<b>人丁→資產→田畝；繁→簡；實物→貨幣</b>
+</div>
+</div>
+<script>
+var D=[
+{n:'西周',y:'前1046–前771',dot:'#8B4513',central:{t:'世卿世祿',b:'三公（太師太傅太保）輔政。<b>官職貴族世襲</b>，父死子繼，血緣宗法制綁定'},local:{t:'分封制',b:'天子→諸侯→卿大夫→士。諸侯在封地有<b>行政軍事財政自主權</b>。封國如魯（周公旦）、燕（召公奭）、齊（姜太公）'},select:{t:'世卿世祿',b:'官位世襲，<b>血緣決定仕途</b>，平民無機會入仕'},tax:{t:'井田制',b:'土地國有，「井」字形九塊。中間<b>公田</b>八家共耕歸貴族，周圍八塊<b>私田</b>各家自耕'},change:'春秋鐵犁牛耕→生產力提升→私田增多→井田制瓦解→禮崩樂壞→諸侯不服天子→分封制崩潰'},
+{n:'秦',y:'前221–前206',dot:'#993C1D',central:{t:'三公九卿制',b:'<b>丞相</b>（行政首長）<b>太尉</b>（軍事，常虛設）<b>御史大夫</b>（監察＋文書）。九卿分管具體事務：奉常（禮儀）郎中令（宮殿警衛）衛尉（宮門）太僕（車馬）<b>廷尉</b>（司法刑獄）典客（外交）宗正（皇族）治粟內史（財政）少府（皇室財政）'},local:{t:'郡縣制',b:'廢分封，全國設<b>36郡</b>。郡設<b>郡守</b>（行政）<b>郡尉</b>（軍事）<b>監御史</b>（監察）。縣設<b>縣令/縣長</b>。官員由中央任命非世襲'},select:{t:'軍功爵制',b:'商鞅變法確立。二十等軍功爵，按<b>斬首數量授爵</b>。廢除世卿世祿→不論出身按功績選拔'},tax:{t:'編戶齊民',b:'全國人口編入戶籍。<b>田租</b>（按畝）＋<b>口賦</b>（按人頭）＋<b>徭役</b>（每年服勞役）＋<b>兵役</b>'},change:'從血緣分封→官僚行政的革命性轉變。三公互相制約，決策權歸皇帝→確立皇權至上原則'},
+{n:'西漢',y:'前206–8',dot:'#BA7517',central:{t:'三公九卿→內外朝',b:'<b>外朝</b>：丞相為首處理日常政務。<b>內朝</b>（武帝設）：大司馬尚書等近臣參與機密決策→架空丞相。另設<b>刺史</b>（十三州監察地方）'},local:{t:'郡國並行→推恩令',b:'初期郡縣＋封國並存→<b>七國之亂</b>（前154年）後削藩→武帝<b>推恩令</b>（前127年）：諸侯王封地分給所有兒子→封國越分越小→實質瓦解'},select:{t:'察舉制',b:'由地方官推薦人才。科目：<b>孝廉</b>（最重要）<b>秀才/茂才</b> <b>賢良方正</b>。後期被門閥壟斷（「舉秀才不知書，舉孝廉父別居」）'},tax:{t:'三十稅一',b:'文景之治田賦稅率3.3%（輕徭薄賦）。武帝<b>鹽鐵官營</b>、均輸平準、統一鑄<b>五銖錢</b>（沿用700年）'},change:'丞相權力過大（呂后時期擅權）→武帝設內朝架空丞相＝削弱相權。郡國並行引發七國之亂→推恩令瓦解封國＝分封必然導致割據'},
+{n:'魏晉南北朝',y:'220–589',dot:'#1D9E75',central:{t:'尚書台主政',b:'尚書台（尚書省前身）實際掌握行政權。門閥士族勢力極盛，「<b>王與馬共天下</b>」（東晉）'},local:{t:'州郡縣三級',b:'州牧/刺史→郡守→縣令。東漢末刺史→州牧軍閥化→三國割據。<b>北魏孝文帝</b>（494年）遷都洛陽推行漢化'},select:{t:'九品中正制',b:'<b>曹魏陳群</b>創立（220年）。中正官按家世才德分九等推薦。後期完全看門第→<b>「上品無寒門，下品無勢族」</b>→門閥壟斷'},tax:{t:'均田制（北魏始）',b:'<b>北魏孝文帝</b>（485年）：國家將無主荒地按人口分配。男子受露田40畝＋桑田20畝，女子受露田20畝'},change:'察舉被門閥壟斷→九品中正制結果同樣被壟斷→需要科舉打破。均田制嘗試重新分配土地→為隋唐租庸調奠定基礎'},
+{n:'隋唐',y:'581–907',dot:'#378ADD',central:{t:'三省六部制',b:'<b>中書省</b>起草詔令→<b>門下省</b>審議封駁（可退回不合理詔令）→<b>尚書省</b>執行。六部：<b>吏</b>（人事）<b>戶</b>（財政）<b>禮</b>（教育祭祀科舉）<b>兵</b>（軍政）<b>刑</b>（司法）<b>工</b>（營造水利）。<b>相權一分為三</b>'},local:{t:'道州縣→藩鎮',b:'全國劃10–15<b>道</b>（監察區）→邊疆設<b>節度使</b>→安史之亂後遍布全國→<b>藩鎮割據</b>（節度使擁兵自重世襲）→唐亡直接原因'},select:{t:'科舉制',b:'<b>隋煬帝</b>設進士科（605年）。<b>唐太宗</b>擴大科目。<b>武則天</b>首創殿試＋武舉。<b>唐玄宗</b>以詩賦取士。公開考試<b>打破門閥壟斷</b>'},tax:{t:'租庸調→兩稅法',b:'<b>租</b>粟2石 <b>調</b>絹2丈 <b>庸</b>役20天（<b>以庸代役</b>＝最大進步）——<b>2023聯考30分原題</b>。安史之亂後均田制崩→780年<b>楊炎</b>推<b>兩稅法</b>：按資產田畝徵稅，夏秋兩次'},change:'丞相集決策執行於一身權力過大→三省將相權拆為起草/審議/執行三環節→既提高效率又防專權。兩稅法＝從「按人丁」→「按資產」的稅制革命'},
+{n:'北宋',y:'960–1127',dot:'#534AB7',central:{t:'二府三司制',b:'<b>中書門下</b>掌行政（宰相＝同平章事，副相＝<b>參知政事</b>分割相權）。<b>樞密院</b>掌軍政。<b>三司</b>掌財政（鹽鐵＋度支＋戶部，長官三司使號稱「計相」）。<b>行政/軍事/財政三權分立</b>'},local:{t:'路州縣（極端分權）',b:'路設<b>四司</b>分管（轉運使/安撫使/提刑使/常平使）互不統屬。州設<b>知州</b>（文官）＋<b>通判</b>（監督知州可直報皇帝）。地方精銳收歸中央禁軍'},select:{t:'科舉強化',b:'<b>糊名制</b>（遮蓋姓名）<b>謄錄制</b>（專人重抄防認筆跡）。殿試定製，進士皆天子門生。每科錄取數百人（唐僅20-30人）。工商子弟也可應考'},tax:{t:'不抑兼併',b:'土地自由買賣→兼併嚴重→三冗問題。<b>王安石變法</b>1069年：青苗法/募役法/方田均稅法/保甲法→觸動既得利益→多被廢除'},change:'唐末藩鎮割據武將篡位教訓→杯酒釋兵權→行政/軍事/財政三分→消除割據但造成冗官冗兵冗費和軍事積弱'},
+{n:'元',y:'1271–1368',dot:'#1D9E75',central:{t:'中書省一省制',b:'只設<b>中書省</b>統管政務（左右丞相主政）。<b>樞密院</b>掌軍事。<b>御史台</b>掌監察。<b>宣政院</b>管西藏和佛教事務（中央管理西藏之始）'},local:{t:'行省制',b:'全國設<b>10個行省</b>＋中書省直轄區＋宣政院轄地（西藏）。行省轄區常<b>跨越山川</b>（犬牙交錯原則）→使地方無法利用地形割據。<b>省級行政區的起源</b>'},select:{t:'科舉（時斷時續）',b:'元初停科舉40年→1313年恢復但分兩套系統：蒙古色目人考試簡單名額多，漢人南人考題難名額少。<b>四等人制</b>'},tax:{t:'紙鈔為主幣',b:'建立世界<b>最早完全紙幣流通制度</b>（中統元寶交鈔1260年）。元末濫發→嚴重通膨→加速滅亡'},change:'三省制程序繁瑣→簡化為一省制。但丞相權力過大→元末專權成常態→明太祖因此直接廢除丞相。行省制奠定此後省級行政基本框架'},
+{n:'明',y:'1368–1644',dot:'#D4537E',central:{t:'廢丞相→設內閣',b:'<b>朱元璋</b>1380年以胡惟庸謀反為由<b>廢除丞相</b>（延續1600年的丞相制終結），六部直接向皇帝負責。<b>朱棣</b>設<b>內閣</b>（大學士為顧問）。內閣法定地位僅「顧問」非宰相。另設錦衣衛/東廠/西廠（特務監控百官）'},local:{t:'三司→巡撫',b:'廢行省設<b>三司</b>分管：<b>布政使司</b>（行政財政）<b>按察使司</b>（監察司法）<b>都指揮使司</b>（軍事）。三司互不統屬→後因需統一協調設<b>巡撫</b>統管一省'},select:{t:'八股取士',b:'內容限<b>四書五經</b>（朱熹注為標準答案）。<b>八股文</b>格式：破題承題起講入手起股中股後股束股。必須<b>「代聖賢立言」</b>。科舉四級：童試→鄉試（舉人）→會試（貢士）→殿試（進士：狀元/榜眼/探花）'},tax:{t:'一條鞭法',b:'<b>張居正</b>1581年推行。各種田賦徭役雜稅<b>合併為一條</b>，折算<b>銀兩</b>統一徵收。正式確立白銀為法定貨幣。實物稅→貨幣稅的重大轉變'},change:'元代丞相專權教訓→廢丞相→但一人處理天下事太累→設內閣輔政（有實無名始終受制於皇帝和太監）。八股取士束縛思想→禁錮知識分子創造力'},
+{n:'清',y:'1644–1912',dot:'#993C1D',central:{t:'軍機處',b:'<b>雍正</b>1729年設<b>軍機處</b>。軍機大臣只能<b>「跪受筆錄」</b>。非正式衙門無官署印信，大臣隨時可撤換。決策經「<b>廷寄</b>」繞過內閣六部直達地方。標誌<b>君主專制達到頂峰</b>'},local:{t:'省府縣＋邊疆管理',b:'<b>巡撫</b>（一省長官）之上設<b>總督</b>（管1–3省偏重軍事）。<b>改土歸流</b>（雍正）取消土司世襲改派流官（<b>2021聯考材料題</b>）。<b>駐藏大臣</b>管西藏。<b>伊犁將軍</b>管新疆。<b>設台灣府</b>歸福建。<b>理藩院</b>管蒙古西藏新疆'},select:{t:'科舉沿用→1905廢除',b:'沿用明制八股取士。<b>1905年</b>清政府廢除科舉（延續1300年的科舉制終結），改設新式學堂。洋務運動後開始派遣留學生'},tax:{t:'攤丁入畝',b:'<b>雍正</b>將<b>丁稅攤入田畝</b>→<b>徹底廢除人頭稅</b>（中國歷史首次）。前提：康熙「滋生人丁永不加賦」（1712年凍結丁稅）。結果：人口從1億暴增至4億'},change:'明代內閣權力膨脹教訓→軍機處「跪受筆錄」→徹底杜絕相權威脅。攤丁入畝＝中國古代最後一次重大稅制改革，趨勢：人丁→資產→田畝'},
+];
+
+
+var colors={central:'#993C1D',local:'#534AB7',select:'#1D9E75',tax:'#BA7517'};
+var labels={central:'中央官制',local:'地方行政',select:'選官制度',tax:'賦稅制度'};
+function render(){
+var el=document.getElementById('tl');
+var h='';
+D.forEach(function(d,i){
+h+='<div class="era"><div class="dot" style="background:'+d.dot+'"></div>';
+h+='<div class="era-hdr" onclick="toggleEra('+i+')"><span class="en">'+d.n+'</span><span class="ey">'+d.y+'</span><span class="arrow" id="arrow'+i+'">▼</span></div>';
+h+='<div class="era-body" id="body'+i+'">';
+h+='<div class="cols">';
+['central','local','select','tax'].forEach(function(k){
+h+='<div class="col" style="border-top-color:'+colors[k]+'">';
+h+='<div class="col-label" style="color:'+colors[k]+'">'+labels[k]+'</div>';
+h+='<div class="col-title">'+d[k].t+'</div>';
+h+='<div class="col-body">'+d[k].b+'</div>';
+h+='</div>';
+});
+h+='</div>';
+h+='<div class="change"><b>\u2192 \u8b8a\u9769\u539f\u56e0</b>\u3000'+d.change+'</div>';
+h+='</div>';
+if(i<D.length-1) h+='<div class="arr">\u2193</div>';
+h+='</div>';
+});
+el.innerHTML=h;
+}
+function toggleEra(i){
+var b=document.getElementById('body'+i);
+var a=document.getElementById('arrow'+i);
+if(b.style.display==='none'){b.style.display='block';a.textContent='\u25bc';}
+else{b.style.display='none';a.textContent='\u25b6';}
+}
+render();
+
+</script>
+</body>
+</html>

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Z001 補充知識庫</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,"PingFang TC","Microsoft JhengHei",sans-serif;color:#1a1a1a;background:#f7f6f3;line-height:1.7}
+.c{max-width:720px;margin:0 auto;padding:14px 16px}
+h1{font-size:26px;font-weight:700}
+.sub{font-size:26px;color:#999;margin-bottom:12px}
+.tabs{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:14px;position:sticky;top:0;z-index:10;background:#f7f6f3;padding:8px 0}
+.tab{font-size:26px;padding:8px 14px;border-radius:18px;border:1px solid #e5e5e5;background:#fff;cursor:pointer;color:#555;font-weight:500;white-space:nowrap;transition:.15s}
+.tab.on{color:#fff;border-color:transparent}
+.leg{font-size:19px;color:#999;margin-bottom:12px;display:flex;gap:8px;flex-wrap:wrap}
+.star{color:#BA7517}
+.cards{display:flex;flex-direction:column;gap:8px}
+.card{padding:16px 18px;border-radius:10px;cursor:pointer;transition:.12s;border:1px solid transparent}
+.card:hover{border-color:rgba(0,0,0,.12);transform:translateX(2px)}
+.card .nm{font-weight:700;font-size:26px;margin-bottom:6px;display:flex;align-items:center;gap:5px;flex-wrap:wrap}
+.card .ct{font-size:26px;line-height:1.8}
+.card .nt{font-size:26px;opacity:.65;margin-top:6px;border-top:1px solid rgba(0,0,0,.08);padding-top:6px}
+.ov{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.5);z-index:100;align-items:center;justify-content:center;padding:12px}
+.ov.show{display:flex}
+.md{background:#fff;border-radius:12px;max-width:560px;width:100%;max-height:85vh;overflow-y:auto;padding:22px;box-shadow:0 20px 60px rgba(0,0,0,.2)}
+.md h3{font-size:26px;font-weight:700;margin-bottom:8px}
+.md .mt{display:inline-block;font-size:26px;padding:4px 10px;border-radius:10px;margin-bottom:8px;margin-right:4px;font-weight:500}
+.md .row{margin-bottom:12px}
+.md .row .label{font-size:26px;color:#999;font-weight:600;margin-bottom:3px}
+.md .row .val{font-size:26px;line-height:1.9}
+.md .cb{float:right;border:none;background:none;font-size:26px;cursor:pointer;color:#999;line-height:1}
+.md .cb:hover{color:#333}
+</style>
+</head>
+<body>
+<div class="c">
+<h1>補充知識庫</h1>
+<div class="sub">政治軍事·經濟稅制·思想宗教·科技工程·外交民族·速問速答 · 共63條</div>
+<div class="tabs" id="tabs"></div>
+<div class="leg"><span class="star">★★★</span>必考 <span class="star">★★</span>常考 <span class="star">★</span>偶考</div>
+<div id="content"></div>
+</div>
+<div class="ov" id="ov" onclick="if(event.target===this)cM()"><div class="md" id="mc"></div></div>
+<script>
+var TABS=[{"id": "pol", "n": "政治·軍事", "color": "#993C1D", "bg": "#FAECE7", "tx": "#712B13"}, {"id": "econ", "n": "經濟·稅制", "color": "#BA7517", "bg": "#FAEEDA", "tx": "#633806"}, {"id": "thought", "n": "思想·宗教", "color": "#534AB7", "bg": "#EEEDFE", "tx": "#3C3489"}, {"id": "scitech", "n": "科技·工程", "color": "#378ADD", "bg": "#E6F1FB", "tx": "#0C447C"}, {"id": "diplo", "n": "外交·民族", "color": "#1D9E75", "bg": "#E1F5EE", "tx": "#085041"}, {"id": "qa", "n": "速問速答", "color": "#D4537E", "bg": "#FBEAF0", "tx": "#72243E"}];
+
+var DATA={
+'pol':[
+{nm:'夏朝：第一個世襲制王朝',cont:'建立者<b>啟</b>打破禪讓制傳統（禹傳位於啟），開始「家天下」。',note:'禪讓制→世襲制的轉變',st:2},
+{nm:'春秋五霸',cont:'兩種說法：①齊桓公、晉文公、楚莊王、吳王闔閭、越王勾踐。②齊桓公、宋襄公、晉文公、秦穆公、楚莊王。',note:'齊桓公「尊王攘夷」任用管仲，是公認的第一位霸主',st:2},
+{nm:'戰國七雄',cont:'齊楚燕韓趙魏秦，最終由秦統一。',note:'口訣：齊楚秦燕趙魏韓（東南西北到中間）',st:2},
+{nm:'焚書坑儒',cont:'秦始皇，前213年焚書（丞相李斯建議），前212年坑儒。主要針對儒家經典和方士。',note:'思想控制的極端手段',st:2},
+{nm:'官渡之戰',cont:'200年，曹操以少勝多擊敗袁紹，奠定統一北方基礎。',note:'三國三大戰役之一',st:2},
+{nm:'赤壁之戰',cont:'208年，孫劉聯軍用火攻大敗曹操，奠定三國鼎立局面。',note:'確立魏蜀吳三國鼎立格局',st:2},
+{nm:'八王之亂',cont:'西晉291–306年，八位宗室王爭奪政權，導致國力衰微，引發「五胡亂華」。',note:'西晉滅亡的直接原因',st:1},
+{nm:'岳飛抗金',cont:'南宋岳飛組建「岳家軍」，取得郾城大捷，提出「連結河朔」戰略。後被秦檜以「莫須有」罪名害死。',note:'岳飛被視為忠義象徵',st:2},
+{nm:'戚繼光抗倭',cont:'明代戚繼光編練「戚家軍」，創「鴛鴦陣」（12人小隊配合專克日本刀法），台州九戰九捷。',note:'明代抗倭名將',st:2},
+{nm:'鄭成功收復台灣',cont:'1662年，鄭成功擊敗荷蘭殖民者，結束其38年統治，收復台灣。',note:'民族英雄',st:2},
+{nm:'雅克薩之戰',cont:'1685–1686年，清軍擊敗沙俄入侵者，促成《尼布楚條約》簽訂（1689年），劃定中俄東段邊界。',note:'中國與西方國家簽訂的第一個平等條約',st:2},
+{nm:'林則徐虎門銷煙',cont:'1839年，林則徐用海水浸化法（鹽滷＋石灰）銷毀鴉片237萬餘斤。',note:'直接導致第一次鴉片戰爭爆發',st:2},
+{nm:'元朝四等人制',cont:'元朝將民眾分為四等：蒙古人、色目人、漢人、南人。蒙古人地位最高，南人（原南宋治下漢人）地位最低。',note:'反映元朝的民族歧視政策',st:1},
+{nm:'秦朝馳道',cont:'以咸陽為中心，東通燕齊，南極吳楚。道寬五十步，三丈而樹。相當於古代的「國道」系統。',note:'與統一車軌配合，促進交通統一',st:1},
+{nm:'春秋車戰',cont:'以「乘」為單位：一乘＝戰車1輛＋甲士3人＋步卒72人。「千乘之國」即擁有千輛戰車的國家。',note:'理解「千乘之國」「萬乘之君」的文化含義',st:1},
+],
+'econ':[
+{nm:'管仲「相地而衰徵」',cont:'春秋齊國管仲推行：按土地質量分級徵稅（肥沃的多徵、貧瘠的少徵）。',note:'中國最早的差別稅率思想',st:1},
+{nm:'井田制運作',cont:'將土地劃為「井」字形九塊，中間一塊為公田（八家共耕），周圍八塊為私田。',note:'西周土地制度的基本形式',st:2},
+{nm:'西漢鹽鐵會議',cont:'前81年（漢昭帝時），討論鹽鐵官營政策。桓寬記錄於《鹽鐵論》。主張官營（桑弘羊）vs主張放開（賢良文學）。',note:'中國最早的經濟政策大辯論記錄',st:1},
+{nm:'「三十稅一」',cont:'文景之治時期的田賦稅率（即3.3%），大幅減輕農民負擔。',note:'「輕徭薄賦」政策的代表',st:1},
+{nm:'唐朝坊市制與柜坊飛錢',cont:'<b>坊市制</b>：商業區（市）與住宅區（坊）嚴格分離，定時開閉。<b>柜坊</b>：經營貨幣保管與匯兌。<b>飛錢</b>：最早的匯票形式（異地匯款）。',note:'宋代打破坊市制→出現夜市草市',st:2},
+{nm:'宋代市舶司',cont:'管理海外貿易的官方機構。主要港口：廣州、泉州、明州（寧波）。南宋泉州港是當時「東方第一大港」。',note:'宋代海上絲綢之路的管理機構',st:2},
+{nm:'宋代交引鋪',cont:'經營鹽引、茶引等有價證券買賣的商鋪。',note:'中國最早的證券交易雛形',st:1},
+{nm:'明朝魚鱗圖冊',cont:'詳細登記土地形狀、面積和所有者的冊籍，因圖形似魚鱗而得名。作為徵稅依據。',note:'明代土地管理的重要工具',st:1},
+{nm:'明清晉商與票號',cont:'明清時期山西商人（晉商）實力雄厚。<b>日昇昌</b>（清道光年間，山西平遙）：中國第一家專營匯兌的金融機構（票號）。',note:'晉商與徽商為明清兩大商幫',st:1},
+{nm:'唐朝租庸調具體數額',cont:'每丁每年：租＝粟2石；調＝絹2丈（或布2.5丈）；庸＝服役20天（或以絹布代替）。',note:'2023聯考30分原題考租庸調',st:3},
+],
+'thought':[
+{nm:'六藝',cont:'《周禮》記載古代教育體系：<b>禮</b>（禮儀）、<b>樂</b>（音樂）、<b>射</b>（射箭）、<b>御</b>（駕車）、<b>書</b>（書法識字）、<b>數</b>（算術）。',note:'注意「六藝」有兩義：一指六種技能，一指六經',st:2},
+{nm:'漢代讖緯之學',cont:'將儒家經典與神秘預言結合。讖＝預言，緯＝對經的神秘化解釋。王莽、劉秀均加以利用以證明政權合法性。',note:'',st:1},
+{nm:'道教的創立',cont:'<b>東漢末年</b>：張陵（張道陵）創<b>五斗米道</b>（天師道，正一派前身）；張角創<b>太平道</b>（黃巾起義「蒼天已死，黃天當立」）。道教以老子為教主，尊《道德經》為根本經典。',note:'道教≠道家。道家是哲學學派，道教是宗教',st:2},
+{nm:'佛教傳入時間線',cont:'<b>西漢末年</b>傳入中國。<b>東漢明帝</b>建白馬寺（公元68年，洛陽，中國第一座佛教寺院）。魏晉南北朝大發展→隋唐鼎盛（玄奘/慧能）。',note:'白馬寺=中國第一座佛寺',st:2},
+{nm:'唐代三教論衡',cont:'儒、佛、道三教辯論，唐玄宗曾親自主持。反映唐代三教並立、兼容並包的文化格局。',note:'唐朝文化開放的體現',st:1},
+{nm:'孔子思想核心',cont:'「仁」的核心是「愛人」。<b>己所不欲，勿施於人</b>。克己復禮為仁。仁者愛人，智者知人。',note:'「己所不欲勿施於人」是考試高頻名句',st:3},
+{nm:'蘇軾的號',cont:'蘇軾，號<b>東坡居士</b>。因被貶黃州（今湖北黃岡）時築室東坡而得名。',note:'Q&A高頻題',st:1},
+],
+'scitech':[
+{nm:'三國馬鈞',cont:'三國魏國，改良織綾機（提高效率4–5倍）、發明<b>指南車</b>（機械定向裝置）和<b>翻車</b>（灌溉工具）。',note:'被譽為「天下之名巧」',st:1},
+{nm:'諸葛亮發明',cont:'蜀漢丞相諸葛亮發明<b>木牛流馬</b>（蜀道運糧工具）、改進<b>連弩</b>（一弩十矢俱發）。',note:'軍事技術創新',st:1},
+{nm:'曲轅犁',cont:'唐朝普及的農業工具，改進了犁的結構，提高耕作效率。相比直轅犁更靈活，適合水田耕作。',note:'唐代農業技術進步的代表',st:1},
+{nm:'唐三彩',cont:'唐代低溫釉陶器，以黃、綠、白（或褐）三色為主。主要用於隨葬，不是日用器。代表唐代陶瓷工藝水平。',note:'注意：唐三彩是陶器不是瓷器',st:1},
+{nm:'《唐律疏議》',cont:'唐高宗時期長孫無忌等主持編纂。中國現存<b>最早、最完整的封建法典</b>。對後世法律和東亞諸國法律影響深遠。',note:'中國法律史重要里程碑',st:2},
+{nm:'宋代《營造法式》',cont:'北宋李誡編修。詳細規定建築標準與工藝，是中國古代最重要的建築技術著作。',note:'考試指南「建築」考點的延伸',st:1},
+{nm:'郭守敬的天文儀器',cont:'元代郭守敬創制<b>簡儀</b>（簡化渾天儀）、<b>仰儀</b>等天文儀器，在全國設<b>27個觀測站</b>進行天文觀測。編制《授時曆》。',note:'元代天文學成就',st:2},
+{nm:'秦軍兵器標準化',cont:'秦軍兵器實行標準化生產：弩機部件可互換，箭頭含鉛毒。體現秦代先進的軍工管理。',note:'出土兵馬俑證實了這一點',st:1},
+{nm:'張衡與渾天說',cont:'東漢張衡完善<b>渾天說</b>：認為天地如雞卵，地如卵黃居於天內（地球在宇宙中間）。製作<b>渾天儀</b>演示天體運行。',note:'與候風地動儀並列為張衡兩大發明',st:2},
+{nm:'《水經注》',cont:'北魏酈道元著。原為為漢代桑欽《水經》作注，實為獨立的綜合性地理著作。記載<b>1252條河流</b>的地理信息，兼具文學價值。',note:'中國古代地理學的經典',st:2},
+],
+'diplo':[
+{nm:'張騫通西域',cont:'西漢張騫（前138年首次出使）開闢絲綢之路。最遠到達<b>大宛</b>（今烏茲別克斯坦）。',note:'絲綢之路起點=長安（今西安）',st:2},
+{nm:'班超經營西域',cont:'東漢班超經營西域<b>30年</b>，重新打通絲綢之路。其子班勇繼續鎮守西域。班超之妹班昭續寫《漢書》。',note:'「投筆從戎」成語出自班超',st:1},
+{nm:'西域都護府',cont:'前60年設立，首任都護<b>鄭吉</b>，治所在烏壘城。是漢朝管理西域的最高軍政機構。',note:'標誌西域正式納入中央政權管轄',st:2},
+{nm:'安西都護府與安西四鎮',cont:'唐代安西都護府管轄範圍最遠到達中亞。<b>安西四鎮</b>：龜茲、疏勒、于闐、焉耆，駐軍約2.4萬人。',note:'唐朝對西域控制的軍事支撐',st:1},
+{nm:'鑑真東渡',cont:'唐代高僧鑑真<b>六次東渡</b>（前五次失敗），最終到達日本傳播佛教、醫學和建築技術。設計<b>唐招提寺</b>，被尊為日本律宗初祖。',note:'中日文化交流的重要人物',st:2},
+{nm:'馬可·波羅',cont:'元代（13世紀）意大利商人馬可·波羅來華，在《馬可·波羅遊記》中描述杭州「堪稱天城」。對元朝的紙幣制度大為驚嘆。',note:'促進歐洲對東方的了解',st:1},
+{nm:'鄭和下西洋細節',cont:'明成祖朱棣派遣，1405–1433年共<b>七次</b>。最遠到達<b>非洲東海岸</b>（今肯尼亞）。船隊帶回長頸鹿（明朝稱「麒麟」）。',note:'世界航海史上的壯舉，比哥倫布早87年',st:2},
+{nm:'北魏孝文帝漢化改革',cont:'494年遷都洛陽。改鮮卑姓為漢姓、穿漢服、說漢語、與漢族通婚。全面漢化政策。',note:'促進北方民族融合，為隋唐大一統奠定基礎',st:2},
+{nm:'黃巾起義',cont:'184年，張角領導。口號「蒼天已死，黃天當立」。以太平道為組織基礎。雖被鎮壓但動搖了東漢統治根基。',note:'東漢滅亡的重要推力',st:1},
+{nm:'絲綢之路延伸',cont:'東漢時期絲綢之路延伸至<b>羅馬帝國</b>，中國絲綢被羅馬貴族視為奢侈品。',note:'',st:1},
+{nm:'唐長安城外僑',cont:'唐朝長安城居住大量波斯、阿拉伯商人，設「<b>蕃坊</b>」管理外僑。長安是當時世界最大最繁華的城市。',note:'唐代開放包容的國際化大都市',st:1},
+],
+'qa':[
+{nm:'中國第一個王朝？',cont:'<b>夏朝</b>',note:'建立者：禹→啟（世襲制開始）',st:2},
+{nm:'「靖康之變」導致哪個朝代滅亡？',cont:'<b>北宋</b>（1127年，金兵攻陷開封，擄走徽欽二帝）',note:'南宋隨即在臨安（杭州）建立',st:2},
+{nm:'「四大發明」中哪項是北宋發明的？',cont:'<b>活字印刷術</b>（畢昇）和<b>指南針</b>航海應用',note:'造紙=東漢，火藥=唐，印刷/指南針=北宋',st:3},
+{nm:'唐代哪位畫家以畫馬著稱？',cont:'<b>韓幹</b>（唐玄宗時期宮廷畫家）',note:'注意區分：韓幹畫馬（唐）/ 徐悲鴻畫馬（近現代）',st:1},
+{nm:'清代哪位皇帝是滿族入關後第一位？',cont:'<b>順治帝</b>（愛新覺羅·福臨，1644年入關）',note:'實際輔政者為攝政王多爾袞',st:1},
+{nm:'清代收復台灣的皇帝？',cont:'<b>康熙帝</b>（1683年派施琅攻台，鄭克塽歸降）',note:'注意：鄭成功1662年收復台灣是從荷蘭手中；康熙1683年是統一鄭氏',st:2},
+{nm:'宋代開創豪放詞風的是？',cont:'<b>蘇軾</b>（最早將詞詩化，予詞作子題）',note:'辛棄疾是豪放派集大成者/稱首',st:2},
+{nm:'康乾盛世是哪幾位皇帝？',cont:'<b>康熙、雍正、乾隆</b>三朝（注意包含雍正）',note:'常見錯誤：只說康熙乾隆，忘記雍正',st:2},
+{nm:'《南京條約》開放五口通商？',cont:'<b>廣州、廈門、福州、寧波、上海</b>',note:'口訣：廣廈福寧上',st:2},
+{nm:'水滸傳梁山好漢幾位？',cont:'<b>108位</b>（36天罡＋72地煞）',note:'',st:1},
+],
+};
+
+
+var curCat='pol';
+function sw(id){curCat=id;rT();rC();}
+function rT(){var h='';for(var i=0;i<TABS.length;i++){var c=TABS[i];h+='<button class="tab'+(curCat===c.id?' on':'')+'" style="'+(curCat===c.id?'background:'+c.color:'')+'" onclick="sw(\''+c.id+'\')">'+c.n+'</button>';}document.getElementById('tabs').innerHTML=h;}
+function rC(){var cat;for(var i=0;i<TABS.length;i++){if(TABS[i].id===curCat){cat=TABS[i];break;}}var items=DATA[curCat]||[];var h='<div class="cards">';for(var j=0;j<items.length;j++){var it=items[j];var stars='\u2605'.repeat(it.st);h+='<div class="card" style="background:'+cat.bg+';color:'+cat.tx+'" onclick="oM(\''+curCat+'\','+j+')">';h+='<div class="nm"><span class="star">'+stars+'</span> '+it.nm+'</div>';h+='<div class="ct">'+it.cont+'</div>';if(it.note)h+='<div class="nt">'+it.note+'</div>';h+='</div>';}h+='</div>';document.getElementById('content').innerHTML=h;}
+function oM(catId,idx){var cat;for(var i=0;i<TABS.length;i++){if(TABS[i].id===catId){cat=TABS[i];break;}}var it=DATA[catId][idx];var freq=['','偶考','常考','必考高頻'][it.st];var h='<button class="cb" onclick="cM()">\u00d7</button>';h+='<h3>'+it.nm+'</h3>';h+='<span class="mt" style="background:'+cat.bg+';color:'+cat.tx+'">'+cat.n+'</span>';h+='<span class="mt" style="background:#FAEEDA;color:#633806"><span class="star">'+'\u2605'.repeat(it.st)+'</span> '+freq+'</span>';h+='<div class="row"><div class="label">\u5167\u5bb9</div><div class="val">'+it.cont+'</div></div>';if(it.note)h+='<div class="row"><div class="label">\u8003\u8a66\u5099\u8a3b</div><div class="val" style="color:#555">'+it.note+'</div></div>';document.getElementById('mc').innerHTML=h;document.getElementById('ov').className='ov show';}
+function cM(){document.getElementById('ov').className='ov';}
+rT();rC();
+
+</script>
+</body>
+</html>
